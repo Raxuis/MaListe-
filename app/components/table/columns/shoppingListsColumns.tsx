@@ -6,7 +6,7 @@ import {Button, buttonVariants} from "~/components/ui/button";
 import {Link} from "react-router";
 import {InfoIcon, Pen, ShoppingCart, Trash} from "lucide-react";
 
-type ShoppingListItem = {
+export type ShoppingListItem = {
     id: string;
     name: string;
     created_at: string;

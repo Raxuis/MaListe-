@@ -76,7 +76,7 @@ class ShoppingItem extends Model
     public function add($shoppingItem)
     {
         return db()
-            ->insert('shopping_items')
+            ->insert('shopping_item')
             ->params([
                 "name" => $shoppingItem["name"],
                 "description" => $shoppingItem["description"],
@@ -88,39 +88,44 @@ class ShoppingItem extends Model
     public function getById($id)
     {
         return db()
-            ->query('SELECT * FROM shopping_items WHERE id = ?')
+            ->query('SELECT * FROM shopping_item WHERE id = ?')
             ->bind($id)
             ->first();
     }
 
-//    public function getByShoppingListId($id)
-//    {
-//        return db()
-//            ->query('SELECT * FROM shopping_item INNER JOIN shopping_list_shopping_item WHERE shopping_list_shopping_item.shopping_list_id = ?')
-//            ->bind($id)
-//            ->fetchAll();
-//    }
-
     public function getAll()
     {
         return db()
-            ->query('SELECT * FROM shopping_items')
+            ->query('SELECT * FROM shopping_item')
             ->fetchAll();
     }
 
-    public function updateById(array $shoppingItem)
+    public function update(array $attributes = [], array $options = [])
     {
-        return db()
-            ->update('shopping_items')
-            ->params([
-                "name" => $shoppingItem["name"],
-                "description" => $shoppingItem["description"],
-                "shopping_list_id" => $shoppingItem["shopping_list_id"]
-            ])
-            ->where('id = ?')
-            ->bind($shoppingItem["id"])
+        if (!isset($attributes["itemId"]) || !isset($attributes["name"]) || !isset($attributes["listId"])) {
+            throw new \Exception("Les champs itemId, name et listId sont requis.");
+        }
+
+        db()
+            ->query('UPDATE shopping_item SET name = ? WHERE id = ?')
+            ->bind($attributes["name"], $attributes["itemId"])
             ->execute();
+
+        $existingRelation = db()
+            ->query('SELECT * FROM shopping_list_shopping_item WHERE shopping_list_id = ? AND shopping_item_id = ?')
+            ->bind($attributes["listId"], $attributes["itemId"])
+            ->get();
+
+        if (!$existingRelation) {
+            db()
+                ->query('INSERT INTO shopping_list_shopping_item (shopping_list_id, shopping_item_id) VALUES (?, ?)')
+                ->bind($attributes["listId"], $attributes["itemId"])
+                ->execute();
+        }
+
+        return true;
     }
+
 
     public function deleteById($id)
     {

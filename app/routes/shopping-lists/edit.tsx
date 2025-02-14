@@ -27,14 +27,12 @@ const Edit = () => {
             <p>
                 Edit
             </p>
-            <div className="">
-                <TableListForm
-                    id={shoppingList.id}
-                    description={shoppingList.description}
-                    items={shoppingList.items}
-                    name={shoppingList.name}
-                />
-            </div>
+            <TableListForm
+                id={shoppingList.id}
+                description={shoppingList.description}
+                items={shoppingList.items}
+                name={shoppingList.name}
+            />
         </div>
     );
 };
