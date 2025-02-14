@@ -22,7 +22,7 @@ app()->group("/shopping-lists", function () {
     app()->put("/", "ShoppingListsController@update");
     app()->delete("/{id}", "ShoppingListsController@delete");
     app()->get("/items/{id}", "ShoppingItemsController@show");
-    app()->post("/items", "ShoppingListsController@add");
+    app()->post("/items", "ShoppingItemsController@create");
     app()->put("/items", "ShoppingItemsController@update");
     app()->delete("/items/{id}", "ShoppingListsController@deleteItem");
 });

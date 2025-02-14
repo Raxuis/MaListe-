@@ -24,9 +24,16 @@ class ShoppingItemsController extends Controller
         ], 200);
     }
 
-    public function add($datas)
+    public function create()
     {
+        $datas = request()->get([
+            "name",
+            "listId"
+        ]);
+        Functions::verifyRequestValues($datas);
 
+        $shoppingItemManager = new ShoppingItem();
+        $shoppingItemManager->add($datas);
     }
 
     public function update()
@@ -39,6 +46,6 @@ class ShoppingItemsController extends Controller
         Functions::verifyRequestValues($datas);
 
         $shoppingItemManager = new ShoppingItem();
-        $item = $shoppingItemManager->update($datas);
+        $shoppingItemManager->update($datas);
     }
 }

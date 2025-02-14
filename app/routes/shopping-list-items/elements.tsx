@@ -22,10 +22,21 @@ const Elements = () => {
                 columns={shoppingListsItemsColumns}
                 data={shoppingListsItems}
             />
-            <div className="w-1/3">
-                <Link to="/shopping-lists" className={buttonVariants({
-                    variant: "outline",
-                })}>Back to shopping lists</Link>
+            <div className="flex justify-between">
+                <div className="w-1/3">
+                    <Link to="/shopping-lists" className={buttonVariants({
+                        variant: "outline",
+                    })}>
+                        Back to shopping lists
+                    </Link>
+                </div>
+                <div className="w-1/3 flex justify-end">
+                    <Link to={`/shopping-lists/items/add`} className={buttonVariants({
+                        variant: "outline",
+                    })}>
+                        Add
+                    </Link>
+                </div>
             </div>
         </div>
     );

@@ -68,21 +68,33 @@ class ShoppingItem extends Model
             $this->setShoppingListId($shoppingItem["shopping_list_id"]);
         }
         $name = $shoppingItem["name"];
-        $description = $shoppingItem["description"];
         $this->setName($name);
-        $this->setDescription($description);
     }
 
     public function add($shoppingItem)
     {
-        return db()
+        db()
             ->insert('shopping_item')
             ->params([
-                "name" => $shoppingItem["name"],
-                "description" => $shoppingItem["description"],
-                "shopping_list_id" => $shoppingItem["shopping_list_id"]
+                "name" => $shoppingItem["name"]
             ])
             ->execute();
+
+        if (isset($shoppingItem["listId"])) {
+            $shoppingItemId = db()->lastInsertId();
+
+            if (!$shoppingItemId) {
+                throw new \Exception("Failed to retrieve last insert ID.");
+            }
+
+            db()
+                ->insert('shopping_list_shopping_item')
+                ->params([
+                    "shopping_list_id" => $shoppingItem["listId"],
+                    "shopping_item_id" => $shoppingItemId
+                ])
+                ->execute();
+        }
     }
 
     public function getById($id)
@@ -130,7 +142,7 @@ class ShoppingItem extends Model
     public function deleteById($id)
     {
         return db()
-            ->delete('shopping_items')
+            ->delete('shopping_item')
             ->where('id = ?')
             ->bind($id)
             ->execute();

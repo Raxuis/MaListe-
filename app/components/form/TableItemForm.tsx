@@ -1,7 +1,7 @@
-import React, { type FormEvent, useState, useEffect } from 'react';
-import { useNavigate } from "react-router";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
+import React, {type FormEvent, useState, useEffect} from 'react';
+import {useNavigate} from "react-router";
+import {Button} from "~/components/ui/button";
+import {Input} from "~/components/ui/input";
 import {
     Select,
     SelectContent,
@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "~/components/ui/select"
-import type { ShoppingList } from "~/components/table/columns/shoppingListsItemsColumns";
+import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
 
 type TableItem = {
     itemId: number | null;
@@ -23,7 +23,7 @@ type Props = {
     name?: string;
 };
 
-const TableItemForm = ({ itemId, listId, name }: Props) => {
+const TableItemForm = ({itemId, listId, name}: Props) => {
     const navigate = useNavigate();
     const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([]);
 
@@ -42,7 +42,7 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
                 const data = await response.json();
                 setShoppingLists(data.shopping_lists);
             } catch (error) {
-                setError("Erreur lors du chargement des listes");
+                setError("Error while fetching shopping lists");
             }
         };
 
@@ -61,12 +61,12 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!tableItem.name) {
-            setError("Veuillez remplir le nom de la liste");
+            setError("Please fill the name");
             return;
         }
 
         if (!tableItem.listId) {
-            setError("Veuillez sélectionner une liste");
+            setError("Please select a shopping list");
             return;
         }
 
@@ -84,10 +84,7 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
-            console.log(shoppingLists)
-
-            console.log('Item created/updated');
+            navigate("/shopping-lists");
         } catch (error) {
             setError("Une erreur est survenue");
         }
@@ -95,29 +92,28 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
 
     return (
         <form method="POST" action="#" onSubmit={handleSubmit} className="flex flex-col w-full mx-auto space-y-4">
-            {/* Only render hidden inputs if values are not null */}
             {tableItem.itemId && (
-                <Input type="hidden" name="id" value={tableItem.itemId.toString()} />
+                <Input type="hidden" name="id" value={tableItem.itemId.toString()}/>
             )}
             {tableItem.listId && (
-                <Input type="hidden" name="listId" value={tableItem.listId.toString()} />
+                <Input type="hidden" name="listId" value={tableItem.listId.toString()}/>
             )}
 
             <Input
                 name="name"
                 id="name"
                 type="text"
-                placeholder="Nom de la liste"
+                placeholder="Item name"
                 value={tableItem.name}
-                onChange={(e) => setTableItem(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e) => setTableItem(prev => ({...prev, name: e.target.value}))}
             />
 
             <Select
-                onValueChange={(value) => setTableItem(prev => ({ ...prev, listId: parseInt(value) }))}
+                onValueChange={(value) => setTableItem(prev => ({...prev, listId: parseInt(value)}))}
                 value={tableItem.listId?.toString() || undefined}
             >
                 <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a shopping List" />
+                    <SelectValue placeholder="Select an item"/>
                 </SelectTrigger>
                 <SelectContent>
                     {shoppingLists.map((list) => (
@@ -136,10 +132,10 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
                     variant="destructive"
                     onClick={() => navigate("/shopping-lists")}
                 >
-                    Annuler
+                    Cancel
                 </Button>
                 <Button type="submit" variant="outline">
-                    {tableItem.itemId ? "Modifier" : "Créer"}
+                    {tableItem.itemId ? "Edit" : "Create"}
                 </Button>
             </div>
         </form>
