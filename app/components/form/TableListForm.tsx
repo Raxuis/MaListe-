@@ -47,7 +47,7 @@ const TableListForm = ({id, name, description, items}: Props) => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!tableList.name) {
-            setError("Veuillez remplir le nom de la liste");
+            setError("Please fill in the name");
             return;
         }
         setError("");
@@ -63,7 +63,7 @@ const TableListForm = ({id, name, description, items}: Props) => {
                 navigate("/shopping-lists");
             })
             .catch(() => {
-                setError("Une erreur est survenue");
+                setError("An error occurred");
             });
     };
 
@@ -91,7 +91,7 @@ const TableListForm = ({id, name, description, items}: Props) => {
                 name="name"
                 id="name"
                 type="text"
-                placeholder="Nom de la liste"
+                placeholder="Shopping list name"
                 value={tableList.name}
                 onChange={(e) => setTableList((prevList) => ({...prevList, name: e.target.value}))}
             />
@@ -99,7 +99,7 @@ const TableListForm = ({id, name, description, items}: Props) => {
             <Textarea
                 name="description"
                 id="description"
-                placeholder="Description de la liste"
+                placeholder="Shopping list description"
                 value={tableList.description}
                 onChange={(e) => setTableList((prevList) => ({...prevList, description: e.target.value}))}
             />
@@ -108,7 +108,7 @@ const TableListForm = ({id, name, description, items}: Props) => {
                 <Input
                     type="text"
                     className="flex-grow"
-                    placeholder="Ajouter un élément"
+                    placeholder="Add item"
                     value={newItem}
                     onChange={(e) => setNewItem(e.target.value)}
                 />
@@ -136,10 +136,10 @@ const TableListForm = ({id, name, description, items}: Props) => {
 
             <div className="flex justify-end gap-4">
                 <Button variant="destructive" onClick={() => navigate("/shopping-lists")}>
-                    Annuler
+                    Cancel
                 </Button>
                 <Button type="submit" variant="outline">
-                    {tableList.id ? "Modifier" : "Créer"}
+                    {tableList.id ? "Edit" : "Create"}
                 </Button>
             </div>
         </form>
