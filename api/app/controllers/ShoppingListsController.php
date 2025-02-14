@@ -7,15 +7,15 @@ use utils\Functions;
 
 class ShoppingListsController extends Controller
 {
-    public function index()
+    public function index(): void
     {
         $shoppingListManager = new ShoppingList();
         $shoppingLists = $shoppingListManager->getAll();
         if (!$shoppingLists) {
             response()->json([
                 "message" => "No shopping lists found",
-                "status" => 404
-            ], 404);
+                "status" => 200
+            ], 200);
             return;
         }
         response()->json([

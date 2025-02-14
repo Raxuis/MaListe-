@@ -11,7 +11,7 @@ return [
     | CSRF protection for your app by uncommenting the line below.
     |
     */
-    // 'enabled' => true,
+     'enabled' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -43,10 +43,10 @@ return [
     |
     | This is a list of routes that will be excluded from CSRF
     | verification. This is useful for APIs that need to bypass
-    | the CSRF verification.the csrf exempted routes routes can 
+    | the CSRF verification.the csrf exempted routes routes can
     | be defined as
     |    - directly i.e 'sample/route'
-    |    - predefined expressions i.e 'route/{int|slug|any|all}' 
+    |    - predefined expressions i.e 'route/{int|slug|any|all}'
     |
     | @expression {int}    - Integer values i.e order/{int} → order/10
     | @expression {slug}   - Alphanumerical values i.e user/{slug} → user/janedoe98

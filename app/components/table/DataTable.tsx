@@ -1,10 +1,7 @@
-"use client"
-
 import {
     type ColumnDef,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -16,9 +13,6 @@ import {
     TableHeader,
     TableRow,
 } from "~/components/ui/table"
-import {Button} from "../ui/button"
-import {ArrowLeft, ArrowRight} from "lucide-react";
-
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -33,16 +27,14 @@ export function DataTable<TData, TValue>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
     })
 
     return (
-        <div className="z-10 w-full overflow-hidden rounded-lg border shadow-lg">
-            <Table className="rounded-lg overflow-hidden">
+        <div className="rounded-md border">
+            <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}
-                                  className="border-b hover:bg-transparent">
+                        <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
                                 return (
                                     <TableHead key={header.id}>
@@ -64,7 +56,6 @@ export function DataTable<TData, TValue>({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
-                                className="border-b"
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
@@ -82,25 +73,6 @@ export function DataTable<TData, TValue>({
                     )}
                 </TableBody>
             </Table>
-            <div className="flex w-full items-center justify-between space-x-2 p-4">
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.previousPage()}
-                    disabled={!table.getCanPreviousPage()}
-                    className="border cursor-pointer"
-                >
-                    <ArrowLeft size={24}/>
-                </Button>
-                <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => table.nextPage()}
-                    disabled={!table.getCanNextPage()}
-                >
-                    <ArrowRight size={24}/>
-                </Button>
-            </div>
         </div>
     )
 }

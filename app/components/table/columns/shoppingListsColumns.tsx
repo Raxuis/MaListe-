@@ -2,61 +2,65 @@
 
 import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
-import {Button} from "~/components/ui/button";
+import {Button, buttonVariants} from "~/components/ui/button";
+import {Link} from "react-router";
+import {Pen, Trash} from "lucide-react";
 
 type ShoppingListItem = {
     id: string;
     name: string;
-    createdAt: string;
+    created_at: string;
 }
 
 export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
     {
         header: "#",
         cell: ({row}) => {
-            return <p className="text-14-medium ">{row.index + 1}</p>;
+            return <p>{row.index + 1}</p>;
         },
     },
     {
         accessorKey: "name",
-        header: "Name",
+        header: () => <div className="text-center">Name</div>,
         cell: ({row}) => {
             const shoppingListItem = row.original;
-            return <p className="text-14-medium ">{shoppingListItem.name}</p>;
+            return <p className="text-center ">{shoppingListItem.name}</p>;
         },
     },
     {
         accessorKey: "createdAt",
-        header: "Created at",
+        header: () => <div className="text-center">Created At</div>,
         cell: ({row}) => {
             const shoppingListItem = row.original;
-            return <p className="text-14-medium ">{formatDateTime(shoppingListItem.createdAt).dateTime}</p>;
+            return <p className="text-center">{formatDateTime(shoppingListItem.created_at).dateTime}</p>;
         },
     },
     {
         id: "actions",
-        header: () => <div className="pl-4">Actions</div>,
+        header: () => <div className="text-center">Actions</div>,
         cell: ({row}) => {
             const shoppingList = row.original;
 
             return (
-                <div className="flex gap-1">
-                    <Button
-                        className="btn btn-sm btn-outline btn-square"
-                        onClick={() => {
-                            console.log("Edit shopping list", shoppingList);
-                        }}
+                <div className="flex gap-1 justify-center items-center">
+                    <Link
+                        to={`/shopping-lists/${shoppingList.id}/edit`}
+                        className={buttonVariants({
+                            variant: "outline",
+                            size: "icon"
+                        })}
                     >
-                        Edit
-                    </Button>
-                    <Button
-                        className="btn btn-sm btn-outline btn-square"
-                        onClick={() => {
-                            console.log("Delete shopping list", shoppingList);
-                        }}
+                        <Pen/>
+                    </Link>
+                    <Link
+                        to={`/shopping-lists/${shoppingList.id}/delete`}
+                        className={buttonVariants({
+                            variant: "outline",
+                            size: "icon"
+                        })}
                     >
-                        Delete
-                    </Button>
+                        <Trash/>
+                    </Link>
                 </div>
             );
         },

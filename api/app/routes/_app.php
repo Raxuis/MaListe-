@@ -1,15 +1,19 @@
 <?php
-//db()->connect([
-//    'host' => '127.0.0.1',
-//    'username' => 'root',
-//    'password' => 'root',
-//    'dbname' => 'react-php-coda',
-//    'port' => 8889
-//]);
+
+$host = _env('DB_HOST');
+$port = _env('DB_PORT');
+$hostWithPort = $host . ":" . $port;
+
+db()->connect(
+    $hostWithPort,
+    _env('DB_DATABASE'),
+    _env('DB_USERNAME'),
+    _env('DB_PASSWORD')
+);
 
 app()->get('/', "Controller@index");
 
-app()->group("/shopping-list", function () {
+app()->group("/shopping-lists", function () {
     app()->get("/", "ShoppingListsController@index");
     app()->get("/{id}", "ShoppingListsController@show");
     app()->post("/", "ShoppingListsController@create");

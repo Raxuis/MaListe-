@@ -75,14 +75,12 @@ class ShoppingList extends Model
 
     public function getAll()
     {
-        shoppingLists = db()->query('SELECT * FROM shopping_list')->all();
-        return shoppingLists;
+        return db()->query('SELECT * FROM shopping_list')->all();;
     }
 
     public function getById($id)
     {
-        shoppingList = db()->query('SELECT * FROM shopping_list WHERE id = ?')->bind($id)->first();
-        return shoppingList;
+        return db()->query('SELECT * FROM shopping_list WHERE id = ?')->bind($id);
     }
 
     public function add($shoppingList)
