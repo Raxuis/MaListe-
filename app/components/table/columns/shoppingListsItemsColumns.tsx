@@ -4,11 +4,16 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
 import {Button} from "~/components/ui/button";
 
-type ShoppingList = {
+export type ShoppingList = {
     id: number,
     name: string,
     description: string,
     created_at: string,
+    items?: [{
+        id: number,
+        name: string,
+        created_at: string
+    }]
 }
 
 export const shoppingListsItemsColumns: ColumnDef<ShoppingList>[] = [

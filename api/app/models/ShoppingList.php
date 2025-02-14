@@ -75,13 +75,49 @@ class ShoppingList extends Model
 
     public function getAll()
     {
-        return db()->query('SELECT * FROM shopping_list')->all();;
+        return db()->query('SELECT * FROM shopping_list')->all();
     }
 
     public function getById($id)
     {
-        return db()->query('SELECT * FROM shopping_list WHERE id = ?')->bind($id);
+        $rows = db()->query('
+        SELECT shopping_list.id AS shopping_list_id,
+               shopping_list.name AS shopping_list_name,
+               shopping_list.description,
+               shopping_item.id AS shopping_item_id,
+               shopping_item.name AS shopping_item_name
+        FROM shopping_list
+        LEFT JOIN shopping_list_shopping_item
+            ON shopping_list_shopping_item.shopping_list_id = shopping_list.id
+        LEFT JOIN shopping_item
+            ON shopping_list_shopping_item.shopping_item_id = shopping_item.id
+        WHERE shopping_list.id = ?
+    ')->bind($id)->get();
+
+        if (empty($rows)) {
+            return null;
+        }
+
+        $shoppingList = [
+            "id" => $rows[0]["shopping_list_id"],
+            "name" => $rows[0]["shopping_list_name"],
+            "description" => $rows[0]["description"] ?? "",
+            "items" => []
+        ];
+
+        foreach ($rows as $row) {
+            if ($row["shopping_item_id"] !== null) {
+                $shoppingList["items"][] = [
+                    "id" => $row["shopping_item_id"],
+                    "name" => $row["shopping_item_name"]
+                ];
+            }
+        }
+
+        return $shoppingList;
     }
+
+
 
     public function getItemsById($id)
     {

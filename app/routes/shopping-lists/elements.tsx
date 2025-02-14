@@ -21,7 +21,7 @@ const Elements = () => {
                 columns={shoppingListsColumns}
                 data={shoppingLists}
             />
-            <Button className="inline-block cursor-pointer w-1/3" onClick={() => {
+            <Button className="inline-block cursor-pointer w-1/3 mx-auto" onClick={() => {
                 navigate('/shopping-lists/add');
             }}>
                 Add Shopping List

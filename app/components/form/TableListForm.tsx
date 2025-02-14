@@ -1,12 +1,12 @@
-import React, {type FormEvent, useState} from 'react';
-import {useNavigate} from "react-router";
-import {PlusCircle, Trash} from "lucide-react";
-import {Button} from "~/components/ui/button";
-import {Input} from "~/components/ui/input";
-import {Textarea} from "~/components/ui/textarea";
+import React, { type FormEvent, useState, useEffect } from 'react';
+import { useNavigate } from "react-router";
+import { PlusCircle, Trash } from "lucide-react";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { Textarea } from "~/components/ui/textarea";
 
 type Item = {
-    name: string
+    name: string;
 }
 
 type TableList = {
@@ -15,15 +15,30 @@ type TableList = {
     items: Item[];
 }
 
-const TableListForm = () => {
+type Props = {
+    name?: string;
+    description?: string;
+    items?: Item[];
+}
+
+const TableListForm = ({ name, description, items }: Props) => {
     const navigate = useNavigate();
     const [tableList, setTableList] = useState<TableList>({
-        name: "",
-        description: "",
-        items: []
+        name: name || "",
+        description: description || "",
+        items: items || [],
     });
+
     const [newItem, setNewItem] = useState("");
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        setTableList({
+            name: name || "",
+            description: description || "",
+            items: items || [],
+        });
+    }, [name, description, items]);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -49,12 +64,11 @@ const TableListForm = () => {
     };
 
     const handleAddItem = () => {
-        if (!newItem.trim()) {
-            return;
-        }
+        if (!newItem.trim()) return;
+
         setTableList((prevList) => ({
             ...prevList,
-            items: [...prevList.items, {name: newItem.trim()}],
+            items: [...prevList.items, { name: newItem.trim() }],
         }));
         setNewItem("");
     };
@@ -73,21 +87,28 @@ const TableListForm = () => {
                 id="name"
                 type="text"
                 placeholder="Nom de la liste"
-                onChange={(e) => setTableList((prevList) => ({...prevList, name: e.target.value}))}
+                value={tableList.name}
+                onChange={(e) => setTableList((prevList) => ({ ...prevList, name: e.target.value }))}
             />
 
             <Textarea
                 name="description"
                 id="description"
                 placeholder="Description de la liste"
-                onChange={(e) => setTableList((prevList) => ({...prevList, description: e.target.value}))}
+                value={tableList.description}
+                onChange={(e) => setTableList((prevList) => ({ ...prevList, description: e.target.value }))}
             />
 
             <div className="flex items-center gap-2">
-                <Input type="text" className="flex-grow" placeholder="Ajouter un élément" value={newItem}
-                       onChange={(e) => setNewItem(e.target.value)}/>
+                <Input
+                    type="text"
+                    className="flex-grow"
+                    placeholder="Ajouter un élément"
+                    value={newItem}
+                    onChange={(e) => setNewItem(e.target.value)}
+                />
                 <Button type="button" onClick={handleAddItem} variant="outline" className="cursor-pointer">
-                    <PlusCircle className="w-5 h-5"/>
+                    <PlusCircle className="w-5 h-5" />
                 </Button>
             </div>
 
@@ -95,9 +116,12 @@ const TableListForm = () => {
                 {tableList.items.map((item, index) => (
                     <li key={index} className="flex items-center justify-between p-2 border rounded-lg">
                         {item.name}
-                        <Button variant="outline" onClick={() => handleRemoveItem(index)}
-                                className="text-red-500 hover:text-red-700 cursor-pointer">
-                            <Trash className="w-5 h-5"/>
+                        <Button
+                            variant="outline"
+                            onClick={() => handleRemoveItem(index)}
+                            className="text-red-500 hover:text-red-700 cursor-pointer"
+                        >
+                            <Trash className="w-5 h-5" />
                         </Button>
                     </li>
                 ))}
@@ -110,7 +134,7 @@ const TableListForm = () => {
                     Annuler
                 </Button>
                 <Button type="submit" variant="outline">
-                    Créer
+                    {name ? "Modifier" : "Créer"}
                 </Button>
             </div>
         </form>

@@ -67,7 +67,10 @@ class ShoppingListsController extends Controller
             ], 200);
             return;
         }
-        response()->json($shoppingList, 200);
+        response()->json([
+            "message" => "Shopping list",
+            "shopping_list" => $shoppingList
+        ], 200);
     }
 
     public function showItems($id)
