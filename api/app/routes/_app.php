@@ -8,7 +8,8 @@ db()->connect(
     $hostWithPort,
     _env('DB_DATABASE'),
     _env('DB_USERNAME'),
-    _env('DB_PASSWORD')
+    _env('DB_PASSWORD'),
+    _env('DB_CONNECTION')
 );
 
 app()->get('/', "Controller@index");
@@ -16,11 +17,12 @@ app()->get('/', "Controller@index");
 app()->group("/shopping-lists", function () {
     app()->get("/", "ShoppingListsController@index");
     app()->get("/{id}", "ShoppingListsController@show");
+    app()->get("/{id}/items", "ShoppingListsController@showItems");
     app()->post("/", "ShoppingListsController@create");
     app()->put("/", "ShoppingListsController@update");
-    app()->delete("/", "ShoppingListsController@delete");
-    app()->get("/items/{id}", "ShoppingListsController@items");
+    app()->delete("/{id}", "ShoppingListsController@delete");
+    app()->get("/items/{id}", "ShoppingListsController@item");
     app()->post("/items", "ShoppingListsController@addItem");
     app()->put("/items", "ShoppingListsController@updateItem");
-    app()->delete("/items", "ShoppingListsController@deleteItem");
+    app()->delete("/items/{id}", "ShoppingListsController@deleteItem");
 });

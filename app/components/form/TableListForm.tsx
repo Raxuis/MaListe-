@@ -5,10 +5,14 @@ import {Button} from "~/components/ui/button";
 import {Input} from "~/components/ui/input";
 import {Textarea} from "~/components/ui/textarea";
 
+type Item = {
+    name: string
+}
+
 type TableList = {
     name: string;
     description: string;
-    items: string[];
+    items: Item[];
 }
 
 const TableListForm = () => {
@@ -27,10 +31,6 @@ const TableListForm = () => {
             setError("Veuillez remplir le nom de la liste");
             return;
         }
-        if (!tableList.description) {
-            setError("Veuillez remplir la description de la liste");
-            return;
-        }
         setError("");
 
         fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists`, {
@@ -41,7 +41,7 @@ const TableListForm = () => {
             },
         })
             .then(() => {
-                console.log("List created successfully!");
+                navigate("/shopping-lists");
             })
             .catch(() => {
                 setError("Une erreur est survenue");
@@ -49,10 +49,12 @@ const TableListForm = () => {
     };
 
     const handleAddItem = () => {
-        if (newItem.trim() === "") return;
+        if (!newItem.trim()) {
+            return;
+        }
         setTableList((prevList) => ({
             ...prevList,
-            items: [...prevList.items, newItem.trim()],
+            items: [...prevList.items, {name: newItem.trim()}],
         }));
         setNewItem("");
     };
@@ -92,7 +94,7 @@ const TableListForm = () => {
             <ul className="space-y-2">
                 {tableList.items.map((item, index) => (
                     <li key={index} className="flex items-center justify-between p-2 border rounded-lg">
-                        {item}
+                        {item.name}
                         <Button variant="outline" onClick={() => handleRemoveItem(index)}
                                 className="text-red-500 hover:text-red-700 cursor-pointer">
                             <Trash className="w-5 h-5"/>

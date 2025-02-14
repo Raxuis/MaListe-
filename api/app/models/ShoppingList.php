@@ -83,22 +83,50 @@ class ShoppingList extends Model
         return db()->query('SELECT * FROM shopping_list WHERE id = ?')->bind($id);
     }
 
-    public function add($shoppingList)
+    public function getItemsById($id)
     {
         return db()
-            ->insert('shopping_lists')
+            ->query('SELECT * FROM shopping_item INNER JOIN shopping_list_shopping_item WHERE shopping_list_shopping_item.shopping_list_id = ?')
+            ->bind($id)
+            ->fetchAll();
+    }
+
+    public function add($shoppingList)
+    {
+        db()
+            ->insert('shopping_list')
             ->params([
                 "name" => $shoppingList["name"],
                 "description" => $shoppingList["description"],
-                "items" => $shoppingList["items"]
             ])
             ->execute();
+
+        if (isset($shoppingList["items"])) {
+            $shoppingListId = db()->lastInsertId();
+            foreach ($shoppingList["items"] as $item) {
+                db()
+                    ->insert('shopping_item')
+                    ->params([
+                        "name" => $item["name"]
+                    ])
+                    ->execute();
+                $itemId = db()->lastInsertId();
+                db()
+                    ->insert('shopping_list_shopping_item')
+                    ->params([
+                        "shopping_list_id" => $shoppingListId,
+                        "shopping_item_id" => $itemId
+                    ])
+                    ->execute();
+            }
+        }
+        return true;
     }
 
     public function updateById($shoppingList)
     {
         return db()
-            ->update('shopping_lists')
+            ->update('shopping_list')
             ->params([
                 "name" => $shoppingList["name"],
                 "description" => $shoppingList["description"],
@@ -111,7 +139,7 @@ class ShoppingList extends Model
     public function deleteById($id)
     {
         return db()
-            ->delete('shopping_lists')
+            ->delete('shopping_list')
             ->where('id', $id)
             ->execute();
     }

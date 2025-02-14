@@ -4,7 +4,7 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
 import {Button, buttonVariants} from "~/components/ui/button";
 import {Link} from "react-router";
-import {Pen, Trash} from "lucide-react";
+import {InfoIcon, Pen, ShoppingCart, Trash} from "lucide-react";
 
 type ShoppingListItem = {
     id: string;
@@ -52,6 +52,26 @@ export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
                     >
                         <Pen/>
                     </Link>
+                    <Link
+                        to={`/shopping-lists/${shoppingList.id}`}
+                        className={buttonVariants({
+                            variant: "outline",
+                            size: "icon"
+                        })}
+                    >
+                        <InfoIcon/>
+                    </Link>
+
+                    <Link
+                        to={`/shopping-lists/${shoppingList.id}/items`}
+                        className={buttonVariants({
+                            variant: "outline",
+                            size: "icon"
+                        })}
+                    >
+                        <ShoppingCart/>
+                    </Link>
+
                     <Link
                         to={`/shopping-lists/${shoppingList.id}/delete`}
                         className={buttonVariants({

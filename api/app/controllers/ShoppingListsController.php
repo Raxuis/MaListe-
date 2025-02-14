@@ -32,7 +32,12 @@ class ShoppingListsController extends Controller
             "items"
         ]);
 
-        Functions::verifyRequestValues($shoppingList);
+        $shoppingListRequiredFields = [
+            "name"
+        ];
+
+        var_dump($shoppingList);
+        Functions::verifyRequestValues($shoppingListRequiredFields);
 
         $shoppingListManager = new ShoppingList();
         $shoppingListManager->initShoppingList($shoppingList);
@@ -58,8 +63,22 @@ class ShoppingListsController extends Controller
         if (!$shoppingList) {
             response()->json([
                 "message" => "Shopping list not found",
-                "status" => 404
-            ], 404);
+                "status" => 200
+            ], 200);
+            return;
+        }
+        response()->json($shoppingList, 200);
+    }
+
+    public function showItems($id)
+    {
+        $shoppingListManager = new ShoppingList();
+        $shoppingList = $shoppingListManager->getItemsById($id);
+        if (!$shoppingList) {
+            response()->json([
+                "message" => "Shopping list not found",
+                "status" => 200
+            ], 200);
             return;
         }
         response()->json($shoppingList, 200);
