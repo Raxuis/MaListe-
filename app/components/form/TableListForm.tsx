@@ -7,23 +7,26 @@ import {Textarea} from "~/components/ui/textarea";
 
 type Item = {
     name: string;
-}
+};
 
 type TableList = {
+    id?: number;
     name: string;
     description: string;
     items: Item[];
-}
+};
 
 type Props = {
+    id?: number;
     name?: string;
     description?: string;
     items?: Item[];
-}
+};
 
-const TableListForm = ({name, description, items}: Props) => {
+const TableListForm = ({id, name, description, items}: Props) => {
     const navigate = useNavigate();
     const [tableList, setTableList] = useState<TableList>({
+        id: id || undefined,
         name: name || "",
         description: description || "",
         items: items || [],
@@ -34,11 +37,12 @@ const TableListForm = ({name, description, items}: Props) => {
 
     useEffect(() => {
         setTableList({
+            id: id || undefined,
             name: name || "",
             description: description || "",
             items: items || [],
         });
-    }, [name, description, items]);
+    }, [id, name, description, items]);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -49,7 +53,7 @@ const TableListForm = ({name, description, items}: Props) => {
         setError("");
 
         fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists`, {
-            method: name ? "PUT" : "POST",
+            method: tableList.id ? "PUT" : "POST",
             body: JSON.stringify(tableList),
             headers: {
                 'Content-Type': 'application/json',
@@ -82,6 +86,7 @@ const TableListForm = ({name, description, items}: Props) => {
 
     return (
         <form method="POST" action="#" onSubmit={handleSubmit} className="flex flex-col w-full mx-auto space-y-4">
+            <Input type="hidden" name="id" value={tableList.id}/>
             <Input
                 name="name"
                 id="name"
@@ -134,7 +139,7 @@ const TableListForm = ({name, description, items}: Props) => {
                     Annuler
                 </Button>
                 <Button type="submit" variant="outline">
-                    {name ? "Modifier" : "Créer"}
+                    {tableList.id ? "Modifier" : "Créer"}
                 </Button>
             </div>
         </form>

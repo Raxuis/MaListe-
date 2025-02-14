@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useParams} from "react-router";
+import {Link, useParams} from "react-router";
 import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
-import {Card, CardContent, CardHeader, CardTitle} from "~/components/ui/card";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "~/components/ui/card";
+import {buttonVariants} from "~/components/ui/button";
 
 const Element = () => {
     const {id} = useParams();
@@ -24,29 +25,36 @@ const Element = () => {
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>
-                    {shoppingList?.name}
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p>{shoppingList?.description}</p>
-                <p>{shoppingList?.created_at}</p>
-                {
-                    shoppingList?.items && (
-                        <>
-                            <p>Items :</p>
-                            <ul>
-                                {shoppingList.items.map((item) => (
-                                    <li key={item.id}>- {item.name}</li>
-                                ))}
-                            </ul>
-                        </>
-                    )
-                }
-            </CardContent>
-        </Card>
+        <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto">
+            <Card>
+                <CardHeader>
+                    <CardTitle>
+                        {shoppingList?.name}
+                    </CardTitle>
+                    <CardDescription>
+                        <p className="text-sm text-slate-500">{shoppingList?.description}</p>
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <p>{shoppingList?.created_at}</p>
+                    {
+                        (shoppingList?.items && shoppingList?.items.length > 0) && (
+                            <>
+                                <p>Items :</p>
+                                <ul>
+                                    {shoppingList.items.map((item) => (
+                                        <li key={item.id}>- {item.name}</li>
+                                    ))}
+                                </ul>
+                            </>
+                        )
+                    }
+                </CardContent>
+            </Card>
+            <Link to="/shopping-lists" className={buttonVariants({
+                variant: "outline",
+            })}>Back to shopping lists</Link>
+        </div>
     );
 };
 

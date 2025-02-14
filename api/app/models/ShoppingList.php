@@ -65,11 +65,12 @@ class ShoppingList extends Model
         if (isset($shoppingList["id"])) {
             $this->setId($shoppingList["id"]);
         }
+        if (isset($shoppingList["description"])) {
+            $this->setDescription($shoppingList["description"]);
+        }
         $name = $shoppingList["name"];
-        $description = $shoppingList["description"];
         $items = $shoppingList["items"];
         $this->setName($name);
-        $this->setDescription($description);
         $this->setItems($items);
     }
 
@@ -164,18 +165,49 @@ class ShoppingList extends Model
         return true;
     }
 
-    public function updateById($shoppingList)
+    public function update(array $attributes = [], array $options = [])
     {
-        return db()
-            ->update('shopping_list')
-            ->params([
-                "name" => $shoppingList["name"],
-                "description" => $shoppingList["description"],
-                "items" => $shoppingList["items"]
-            ])
-            ->where('id', $shoppingList["id"])
+        if (!isset($attributes["id"])) {
+            throw new \Exception("ID requis pour mettre à jour la liste d'achats.");
+        }
+
+        db()
+            ->query('UPDATE shopping_list SET name = ?, description = ? WHERE id = ?')
+            ->bind($attributes["name"], $attributes["description"], $attributes["id"])
             ->execute();
+
+        db()
+            ->query('DELETE FROM shopping_list_shopping_item WHERE shopping_list_id = ?')
+            ->bind($attributes["id"])
+            ->execute();
+
+        if (!empty($attributes["items"]) && is_array($attributes["items"])) {
+            foreach ($attributes["items"] as $item) {
+                $existingItem = db()
+                    ->query('SELECT id FROM shopping_item WHERE name = ?')
+                    ->bind($item["name"])
+                    ->get();
+
+                if (!is_array($existingItem) || !isset($existingItem["id"])) {
+                    db()
+                        ->query('INSERT INTO shopping_item (name) VALUES (?)')
+                        ->bind($item["name"])
+                        ->execute();
+                    $itemId = db()->lastInsertId();
+                } else {
+                    $itemId = $existingItem["id"];
+                }
+
+                db()
+                    ->query('INSERT INTO shopping_list_shopping_item (shopping_list_id, shopping_item_id) VALUES (?, ?)')
+                    ->bind($attributes["id"], $itemId)
+                    ->execute();
+            }
+        }
+
+        return true;
     }
+
 
     public function deleteById($id)
     {

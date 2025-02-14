@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {DataTable} from "~/components/table/DataTable";
 import {shoppingListsItemsColumns} from "~/components/table/columns/shoppingListsItemsColumns";
-import {useNavigate, useParams} from "react-router";
+import {Link, useNavigate, useParams} from "react-router";
+import {buttonVariants} from "~/components/ui/button";
 
 const Elements = () => {
     const navigate = useNavigate();
@@ -15,12 +16,17 @@ const Elements = () => {
         });
     }, []);
     return (
-        <div>
+        <div className="flex flex-col gap-8">
             Elements
             <DataTable
                 columns={shoppingListsItemsColumns}
                 data={shoppingListsItems}
             />
+            <div className="w-1/3">
+                <Link to="/shopping-lists" className={buttonVariants({
+                    variant: "outline",
+                })}>Back to shopping lists</Link>
+            </div>
         </div>
     );
 };

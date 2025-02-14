@@ -23,13 +23,18 @@ const Edit = () => {
         );
     }
     return (
-        <div>
-            Edit
-            <TableListForm
-                description={shoppingList.description}
-                items={shoppingList.items}
-                name={shoppingList.name}
-            />
+        <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto">
+            <p>
+                Edit
+            </p>
+            <div className="">
+                <TableListForm
+                    id={shoppingList.id}
+                    description={shoppingList.description}
+                    items={shoppingList.items}
+                    name={shoppingList.name}
+                />
+            </div>
         </div>
     );
 };

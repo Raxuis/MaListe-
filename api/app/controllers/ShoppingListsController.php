@@ -87,20 +87,26 @@ class ShoppingListsController extends Controller
         response()->json($shoppingList, 200);
     }
 
-    public function update($id): void
+    public function update(): void
     {
         $shoppingList = request()->get([
+            "id",
             "name",
             "description",
             "items"
         ]);
 
-        Functions::verifyRequestValues($shoppingList);
+        $requestedFields = [
+            "id",
+            "name"
+        ];
+
+        Functions::verifyRequestValues($requestedFields);
 
         $shoppingListManager = new ShoppingList();
         $shoppingListManager->initShoppingList($shoppingList);
 
-        $updatedShoppingList = $shoppingListManager->updateById($id, $shoppingList);
+        $updatedShoppingList = $shoppingListManager->update($shoppingList);
         if (!$updatedShoppingList) {
             response()->json([
                 "message" => "Error while updating shopping list",
