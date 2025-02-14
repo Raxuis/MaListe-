@@ -1,9 +1,9 @@
-import React, { type FormEvent, useState, useEffect } from 'react';
-import { useNavigate } from "react-router";
-import { PlusCircle, Trash } from "lucide-react";
-import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { Textarea } from "~/components/ui/textarea";
+import React, {type FormEvent, useState, useEffect} from 'react';
+import {useNavigate} from "react-router";
+import {PlusCircle, Trash} from "lucide-react";
+import {Button} from "~/components/ui/button";
+import {Input} from "~/components/ui/input";
+import {Textarea} from "~/components/ui/textarea";
 
 type Item = {
     name: string;
@@ -21,7 +21,7 @@ type Props = {
     items?: Item[];
 }
 
-const TableListForm = ({ name, description, items }: Props) => {
+const TableListForm = ({name, description, items}: Props) => {
     const navigate = useNavigate();
     const [tableList, setTableList] = useState<TableList>({
         name: name || "",
@@ -49,7 +49,7 @@ const TableListForm = ({ name, description, items }: Props) => {
         setError("");
 
         fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists`, {
-            method: 'POST',
+            method: name ? "PUT" : "POST",
             body: JSON.stringify(tableList),
             headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const TableListForm = ({ name, description, items }: Props) => {
 
         setTableList((prevList) => ({
             ...prevList,
-            items: [...prevList.items, { name: newItem.trim() }],
+            items: [...prevList.items, {name: newItem.trim()}],
         }));
         setNewItem("");
     };
@@ -88,7 +88,7 @@ const TableListForm = ({ name, description, items }: Props) => {
                 type="text"
                 placeholder="Nom de la liste"
                 value={tableList.name}
-                onChange={(e) => setTableList((prevList) => ({ ...prevList, name: e.target.value }))}
+                onChange={(e) => setTableList((prevList) => ({...prevList, name: e.target.value}))}
             />
 
             <Textarea
@@ -96,7 +96,7 @@ const TableListForm = ({ name, description, items }: Props) => {
                 id="description"
                 placeholder="Description de la liste"
                 value={tableList.description}
-                onChange={(e) => setTableList((prevList) => ({ ...prevList, description: e.target.value }))}
+                onChange={(e) => setTableList((prevList) => ({...prevList, description: e.target.value}))}
             />
 
             <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ const TableListForm = ({ name, description, items }: Props) => {
                     onChange={(e) => setNewItem(e.target.value)}
                 />
                 <Button type="button" onClick={handleAddItem} variant="outline" className="cursor-pointer">
-                    <PlusCircle className="w-5 h-5" />
+                    <PlusCircle className="w-5 h-5"/>
                 </Button>
             </div>
 
@@ -121,7 +121,7 @@ const TableListForm = ({ name, description, items }: Props) => {
                             onClick={() => handleRemoveItem(index)}
                             className="text-red-500 hover:text-red-700 cursor-pointer"
                         >
-                            <Trash className="w-5 h-5" />
+                            <Trash className="w-5 h-5"/>
                         </Button>
                     </li>
                 ))}

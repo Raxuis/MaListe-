@@ -11,6 +11,7 @@ const Elements = () => {
         const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${id}/items`);
         response.then((res) => res.json()).then((data) => {
             setShoppingListsItems(data);
+            console.log(data)
         });
     }, []);
     return (

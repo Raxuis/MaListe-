@@ -25,7 +25,11 @@ const Edit = () => {
     return (
         <div>
             Edit
-            <TableListForm description={shoppingList.description} items={shoppingList.items} name={shoppingList.name}/>
+            <TableListForm
+                description={shoppingList.description}
+                items={shoppingList.items}
+                name={shoppingList.name}
+            />
         </div>
     );
 };

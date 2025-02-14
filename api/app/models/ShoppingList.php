@@ -118,11 +118,16 @@ class ShoppingList extends Model
     }
 
 
-
     public function getItemsById($id)
     {
         return db()
-            ->query('SELECT * FROM shopping_item INNER JOIN shopping_list_shopping_item WHERE shopping_list_shopping_item.shopping_list_id = ?')
+            ->query('
+            SELECT shopping_item.id, shopping_item.name, shopping_item.created_at
+            FROM shopping_item
+            INNER JOIN shopping_list_shopping_item
+                ON shopping_list_shopping_item.shopping_item_id = shopping_item.id
+            WHERE shopping_list_shopping_item.shopping_list_id = ?
+        ')
             ->bind($id)
             ->fetchAll();
     }

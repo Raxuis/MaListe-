@@ -31,13 +31,6 @@ export const shoppingListsItemsColumns: ColumnDef<ShoppingList>[] = [
         },
     },
     {
-        accessorKey: "description",
-        header: "Description",
-        cell: ({row}) => {
-            return <p className="text-14-medium">{row.original.description}</p>;
-        },
-    },
-    {
         accessorKey: "created_at",
         header: "Created at",
         cell: ({row}) => {
