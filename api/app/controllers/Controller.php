@@ -9,7 +9,8 @@ namespace App\Controllers;
  */
 class Controller extends \Leaf\Controller
 {
-    // You can define methods here that would be used
-    // throughout your controller classes
-    // public function someMethod() {}
+    public function index(): void
+    {
+        response()->json(['message' => 'Welcome to MaListe+']);
+    }
 }

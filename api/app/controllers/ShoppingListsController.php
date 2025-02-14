@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\ShoppingList;
+use utils\Functions;
+
+class ShoppingListsController extends Controller
+{
+    public function index()
+    {
+        $shoppingListManager = new ShoppingList();
+        $shoppingLists = $shoppingListManager->getAll();
+        if (!$shoppingLists) {
+            response()->json([
+                "message" => "No shopping lists found",
+                "status" => 404
+            ], 404);
+            return;
+        }
+        response()->json([
+            "message" => "List of shopping lists",
+            "shopping_lists" => $shoppingLists
+        ], 200);
+    }
+
+    public function create(): void
+    {
+        $shoppingList = request()->get([
+            "name",
+            "description",
+            "items"
+        ]);
+
+        Functions::verifyRequestValues($shoppingList);
+
+        $shoppingListManager = new ShoppingList();
+        $shoppingListManager->initShoppingList($shoppingList);
+
+        $createdShoppingList = $shoppingListManager->add($shoppingList);
+        if (!$createdShoppingList) {
+            response()->json([
+                "message" => "Error while creating shopping list",
+                "status" => 500
+            ], 500);
+            return;
+        }
+        response()->json([
+            "message" => "Shopping list created",
+            "shopping_list" => $createdShoppingList
+        ], 201);
+    }
+
+    public function show($id): void
+    {
+        $shoppingListManager = new ShoppingList();
+        $shoppingList = $shoppingListManager->getById($id);
+        if (!$shoppingList) {
+            response()->json([
+                "message" => "Shopping list not found",
+                "status" => 404
+            ], 404);
+            return;
+        }
+        response()->json($shoppingList, 200);
+    }
+
+    public function update($id): void
+    {
+        $shoppingList = request()->get([
+            "name",
+            "description",
+            "items"
+        ]);
+
+        Functions::verifyRequestValues($shoppingList);
+
+        $shoppingListManager = new ShoppingList();
+        $shoppingListManager->initShoppingList($shoppingList);
+
+        $updatedShoppingList = $shoppingListManager->updateById($id, $shoppingList);
+        if (!$updatedShoppingList) {
+            response()->json([
+                "message" => "Error while updating shopping list",
+                "status" => 500
+            ], 500);
+            return;
+        }
+        response()->json([
+            "message" => "Shopping list updated",
+            "shopping_list" => $updatedShoppingList
+        ], 200);
+    }
+
+    public function delete($id): void
+    {
+        $shoppingListManager = new ShoppingList();
+        $deletedShoppingList = $shoppingListManager->deleteById($id);
+        if (!$deletedShoppingList) {
+            response()->json([
+                "message" => "Error while deleting shopping list",
+                "status" => 500
+            ], 500);
+            return;
+        }
+        response()->json([
+            "message" => "Shopping list deleted",
+            "shopping_list" => $deletedShoppingList
+        ], 200);
+    }
+}
