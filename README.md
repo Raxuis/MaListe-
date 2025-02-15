@@ -1,100 +1,66 @@
-# Welcome to React Router!
+# MaListe+
 
-A modern, production-ready template for building full-stack React applications using React Router.
+**MaListe+** is aimed to list your shopping lists/items.
+---
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Table of Contents
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
-
-```bash
-npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+- [Author](#author)
+- [Languages](#languages)
+- [Versions](#versions)
+- [Starting](#starting)
 
 ---
 
-Built with ❤️ using React Router.
+## Author
+
+- [Raxuis](https://github.com/Raxuis)
+
+---
+
+## Languages
+
+This project is built using the following technologies:
+
+- [React](https://react.dev/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Shadcn](https://ui.shadcn.com/)
+
+---
+
+## Versions
+
+Ensure you have the following versions installed:
+
+- **Node.js**: v20.11.0
+- **npm**: v10.2.4
+- **React.js**: ^19.0.0
+- **TailwindCSS**: v4
+
+---
+
+## Starting
+
+To get started with the project, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Raxuis/MaListe-.git
+   ```
+
+2. Navigate to the project folder:
+   ```bash
+   cd MaListe-
+   ```
+
+3. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+4. Run the development server:
+   ```bash
+   pnpm dev
+   ```
+
+5. Open your browser or emulator to view the application.
