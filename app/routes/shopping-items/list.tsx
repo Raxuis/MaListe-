@@ -3,6 +3,14 @@ import {DataTable} from "~/components/table/DataTable";
 import {useNavigate} from "react-router";
 import {Button} from "~/components/ui/button";
 import {shoppingItems} from "~/components/table/columns/shoppingItems";
+import type {Route} from "../../../.react-router/types/app/routes/+types/home";
+
+export function meta({}: Route.MetaArgs) {
+    return [
+        {title: "Shopping Items"},
+        {name: "description", content: "Shopping items list."},
+    ];
+}
 
 const List = () => {
     const navigate = useNavigate();

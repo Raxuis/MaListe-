@@ -3,6 +3,14 @@ import {DataTable} from "~/components/table/DataTable";
 import {shoppingListsItemsColumns} from "~/components/table/columns/shoppingListsItemsColumns";
 import {Link, useParams, useNavigate} from "react-router";
 import {Button, buttonVariants} from "~/components/ui/button";
+import type {Route} from "./+types/home";
+
+export function meta({}: Route.MetaArgs) {
+    return [
+        {title: "Shopping Lists Items"},
+        {name: "description", content: "Shopping Lists Items list."},
+    ];
+}
 
 const List = () => {
     const {id} = useParams();
