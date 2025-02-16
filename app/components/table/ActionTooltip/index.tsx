@@ -13,7 +13,9 @@ const ActionToolTip = ({children, tooltipContent}: Props) => {
                 <TooltipTrigger asChild>
                     {children}
                 </TooltipTrigger>
-                <TooltipContent>{tooltipContent}</TooltipContent>
+                <TooltipContent>
+                    {tooltipContent}
+                </TooltipContent>
             </Tooltip>
         </TooltipProvider>
     );

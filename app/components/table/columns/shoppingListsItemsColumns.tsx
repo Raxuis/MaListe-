@@ -4,7 +4,7 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
 import {Link} from "react-router";
 import {useParams} from "react-router";
-import {Pen, Trash} from "lucide-react";
+import {InfoIcon, Pen, Trash} from "lucide-react";
 import {Button, buttonVariants} from "~/components/ui/button";
 import ActionTooltip from "~/components/table/ActionTooltip";
 import {toast} from "sonner";
@@ -70,6 +70,17 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
 
             return (
                 <div className="flex gap-1">
+                    <ActionTooltip tooltipContent="Show more">
+                        <Link
+                            className={buttonVariants({
+                                variant: "outline",
+                                size: "icon"
+                            })}
+                            to={`/shopping-lists/items/${item.id}`}
+                        >
+                            <InfoIcon/>
+                        </Link>
+                    </ActionTooltip>
                     <ActionTooltip tooltipContent="Edit">
                         <Link
                             className={buttonVariants({

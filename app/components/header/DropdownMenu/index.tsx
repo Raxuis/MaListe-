@@ -8,7 +8,7 @@ const HeaderDropdownMenu = () => {
     return (
         <div className="flex mr-2 items-center gap-2">
             <DropdownMenu>
-                <DropdownMenuTrigger className="cursor-pointer">
+                <DropdownMenuTrigger className="cursor-pointer" asChild>
                     <Button variant="ghost" size="icon" className="cursor-pointer">
                         <Menu size={64} />
                     </Button>

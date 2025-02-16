@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router";
+import {useParams, useNavigate} from "react-router";
 import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "~/components/ui/card";
-import {buttonVariants} from "~/components/ui/button";
+import {Button} from "~/components/ui/button";
+import {Calendar} from "lucide-react";
 
 const Show = () => {
     const {id} = useParams();
     const [shoppingList, setShoppingList] = useState<ShoppingList>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${id}`);
@@ -35,7 +37,12 @@ const Show = () => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <p>{shoppingList?.created_at}</p>
+                    <p className="flex gap-2 text-sm text-slate-500 items-center">
+                        <Calendar className="size-5"/>
+                        <span>
+                            {shoppingList?.created_at}
+                        </span>
+                    </p>
                     {
                         (shoppingList?.items && shoppingList?.items.length > 0) && (
                             <>
@@ -50,9 +57,11 @@ const Show = () => {
                     }
                 </CardContent>
             </Card>
-            <Link to="/shopping-lists" className={buttonVariants({
-                variant: "outline",
-            })}>Back to shopping lists</Link>
+            <Button variant="outline" onClick={() => {
+                navigate(-1);
+            }}>
+                Back
+            </Button>
         </div>
     );
 };
