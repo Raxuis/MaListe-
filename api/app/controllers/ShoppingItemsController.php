@@ -7,6 +7,23 @@ use utils\Functions;
 
 class ShoppingItemsController extends Controller
 {
+    public function index(): void
+    {
+        $shoppingItemManager = new ShoppingItem();
+        $items = $shoppingItemManager->getAll();
+        if (!$items) {
+            response()->json([
+                "message" => "No items found",
+                "status" => 404
+            ], 404);
+            return;
+        }
+        response()->json([
+            "message" => "List of items",
+            "items" => $items
+        ], 200);
+    }
+
     public function show($id)
     {
         $shoppingItemManager = new ShoppingItem();

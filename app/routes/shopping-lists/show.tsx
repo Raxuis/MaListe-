@@ -4,7 +4,7 @@ import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsCo
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "~/components/ui/card";
 import {buttonVariants} from "~/components/ui/button";
 
-const Element = () => {
+const Show = () => {
     const {id} = useParams();
     const [shoppingList, setShoppingList] = useState<ShoppingList>();
 
@@ -57,4 +57,4 @@ const Element = () => {
     );
 };
 
-export default Element;
+export default Show;

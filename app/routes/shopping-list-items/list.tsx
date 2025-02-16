@@ -4,7 +4,7 @@ import {shoppingListsItemsColumns} from "~/components/table/columns/shoppingList
 import {Link, useParams} from "react-router";
 import {buttonVariants} from "~/components/ui/button";
 
-const Elements = () => {
+const List = () => {
     const {id} = useParams();
     const [shoppingListsItems, setShoppingListsItems] = useState([]);
     const [shoppingListName, setShoppingListName] = useState("");
@@ -51,4 +51,4 @@ const Elements = () => {
     );
 };
 
-export default Elements;
+export default List;

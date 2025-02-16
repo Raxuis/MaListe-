@@ -5,9 +5,9 @@ export default [
     ...prefix(
         "/shopping-lists",
         [
-            route("", "routes/shopping-lists/elements.tsx"),
+            route("", "routes/shopping-lists/list.tsx"),
             route("add", "routes/shopping-lists/add.tsx"),
-            route(":id", "routes/shopping-lists/element.tsx"),
+            route(":id", "routes/shopping-lists/show.tsx"),
             route(":id/edit", "routes/shopping-lists/edit.tsx"),
             route(":id/delete", "routes/shopping-lists/delete.tsx"),
             ...prefix(
@@ -19,12 +19,13 @@ export default [
             ...prefix(
                 ":id/items",
                 [
-                    route("", "routes/shopping-list-items/elements.tsx"),
-                    route(":itemId", "routes/shopping-list-items/element.tsx"),
+                    route("", "routes/shopping-list-items/list.tsx"),
+                    route(":itemId", "routes/shopping-list-items/show.tsx"),
                     route(":itemId/edit", "routes/shopping-list-items/edit.tsx"),
                     route(":itemId/delete", "routes/shopping-list-items/delete.tsx")
                 ]
             ),
         ]
-    )
+    ),
+    route("/shopping-items", "routes/shopping-items/list.tsx")
 ] satisfies RouteConfig;

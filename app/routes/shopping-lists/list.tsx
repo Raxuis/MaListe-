@@ -4,7 +4,7 @@ import {shoppingListsColumns} from "~/components/table/columns/shoppingListsColu
 import {Button} from "~/components/ui/button";
 import {useNavigate} from "react-router";
 
-const Elements = () => {
+const List = () => {
     const navigate = useNavigate();
     const [shoppingLists, setShoppingLists] = useState([]);
     useEffect(() => {
@@ -30,4 +30,4 @@ const Elements = () => {
     );
 };
 
-export default Elements;
+export default List;
