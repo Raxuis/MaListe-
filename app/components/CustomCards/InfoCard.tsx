@@ -4,6 +4,7 @@ import {Calendar, ListCheck} from "lucide-react";
 import {formatDateTime} from "~/utils";
 import {Checkbox} from "~/components/ui/checkbox";
 import {toast} from "sonner";
+import {cn} from "~/utils/cn";
 
 type InfosCardProps = {
     infos: {
@@ -14,12 +15,18 @@ type InfosCardProps = {
             name: string,
             is_completed: boolean
         }[],
+        is_completed?: boolean,
         createdAt: string,
     }
 }
 
+const statusClasses = {
+    completed: "bg-green-100 text-green-700 border-green-300",
+    notCompleted: "bg-red-100 text-red-700 border-red-300",
+};
+
 const InfosCard = ({infos}: InfosCardProps) => {
-    const {name, description, createdAt} = infos;
+    const {name, description, createdAt, is_completed} = infos;
     const [items, setItems] = useState(infos.items || []);
 
     const handleCheckboxChange = async (itemId: number, checked: boolean) => {
@@ -78,9 +85,21 @@ const InfosCard = ({infos}: InfosCardProps) => {
                     </div>
                 )}
             </CardContent>
-            <CardFooter className="flex items-center text-sm text-gray-500 mt-3">
-                <Calendar className="size-5 text-gray-400"/>
-                <span className="ml-2">{formatDateTime(createdAt).dateTime}</span>
+            <CardFooter className="flex justify-between text-sm text-gray-500 mt-3 w-full">
+                <div className="flex items-center gap-2">
+                    <Calendar className="size-5 text-gray-400"/>
+                    <span>{formatDateTime(createdAt).dateTime}</span>
+                </div>
+                {is_completed !== undefined && (
+                    <div>
+                            <span className={cn(
+                                "px-3 py-1 text-xs font-medium border rounded-full text-center w-1/3",
+                                is_completed ? statusClasses.completed : statusClasses.notCompleted
+                            )}>
+                            {is_completed ? "Completed" : "Not Completed"}
+                        </span>
+                    </div>
+                )}
             </CardFooter>
         </Card>
     );
