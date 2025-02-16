@@ -76,7 +76,7 @@ class ShoppingListsController extends Controller
     public function showItems($id)
     {
         $shoppingListManager = new ShoppingList();
-        $shoppingList = $shoppingListManager->getItemsById($id);
+        $shoppingList = $shoppingListManager->getShoppingListItemsById($id);
         if (!$shoppingList) {
             response()->json([
                 "message" => "Shopping list not found",

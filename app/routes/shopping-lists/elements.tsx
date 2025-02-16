@@ -16,7 +16,7 @@ const Elements = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            Elements
+            Shopping Lists
             <DataTable
                 columns={shoppingListsColumns}
                 data={shoppingLists}

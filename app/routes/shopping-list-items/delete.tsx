@@ -5,7 +5,7 @@ const Delete = () => {
     const {id, itemId} = useParams();
     const navigate = useNavigate();
     useEffect(() => {
-        const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${id}/${itemId}`, {
+        const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/items/${itemId}`, {
             method: 'DELETE'
         });
         response.then(() => {

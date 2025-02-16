@@ -48,4 +48,10 @@ class ShoppingItemsController extends Controller
         $shoppingItemManager = new ShoppingItem();
         $shoppingItemManager->update($datas);
     }
+
+    public function delete($id)
+    {
+        $shoppingItemManager = new ShoppingItem();
+        $shoppingItemManager->deleteById($id);
+    }
 }

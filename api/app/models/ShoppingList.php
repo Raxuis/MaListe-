@@ -119,18 +119,34 @@ class ShoppingList extends Model
     }
 
 
-    public function getItemsById($id)
+    public function getShoppingListItemsById($id)
     {
-        return db()
+        $items = db()
             ->query('
-            SELECT shopping_item.id, shopping_item.name, shopping_item.created_at
-            FROM shopping_item
-            INNER JOIN shopping_list_shopping_item
-                ON shopping_list_shopping_item.shopping_item_id = shopping_item.id
-            WHERE shopping_list_shopping_item.shopping_list_id = ?
-        ')
+        SELECT shopping_item.id, shopping_item.name, shopping_item.created_at, shopping_list.name as list_name
+        FROM shopping_item
+        INNER JOIN shopping_list_shopping_item
+            ON shopping_list_shopping_item.shopping_item_id = shopping_item.id
+        INNER JOIN shopping_list
+            ON shopping_list_shopping_item.shopping_list_id = shopping_list.id
+        WHERE shopping_list_shopping_item.shopping_list_id = ?
+    ')
             ->bind($id)
             ->fetchAll();
+
+        if (empty($items)) {
+            return [
+                'list_name' => '',
+                'items' => []
+            ];
+        }
+
+        $list_name = $items[0]['list_name'];
+
+        return [
+            'list_name' => $list_name,
+            'items' => $items
+        ];
     }
 
     public function add($shoppingList)

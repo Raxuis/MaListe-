@@ -10,7 +10,6 @@ const Edit = () => {
     useEffect(() => {
         const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${id}`);
         response.then((res) => res.json()).then((data) => {
-            console.log(data);
             setShoppingList(data.shopping_list);
         });
     }, []);

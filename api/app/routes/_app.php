@@ -24,5 +24,5 @@ app()->group("/shopping-lists", function () {
     app()->get("/items/{id}", "ShoppingItemsController@show");
     app()->post("/items", "ShoppingItemsController@create");
     app()->put("/items", "ShoppingItemsController@update");
-    app()->delete("/items/{id}", "ShoppingListsController@deleteItem");
+    app()->delete("/items/{id}", "ShoppingItemsController@delete");
 });

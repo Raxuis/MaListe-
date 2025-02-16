@@ -1,23 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import {DataTable} from "~/components/table/DataTable";
 import {shoppingListsItemsColumns} from "~/components/table/columns/shoppingListsItemsColumns";
-import {Link, useNavigate, useParams} from "react-router";
+import {Link, useParams} from "react-router";
 import {buttonVariants} from "~/components/ui/button";
 
 const Elements = () => {
-    const navigate = useNavigate();
     const {id} = useParams();
     const [shoppingListsItems, setShoppingListsItems] = useState([]);
+    const [shoppingListName, setShoppingListName] = useState("");
     useEffect(() => {
         const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${id}/items`);
         response.then((res) => res.json()).then((data) => {
-            setShoppingListsItems(data);
-            console.log(data)
+            setShoppingListsItems(data.items);
+            setShoppingListName(data.list_name);
         });
     }, []);
     return (
         <div className="flex flex-col gap-8">
-            Elements
+            <p>
+                Shopping Lists Items {
+                shoppingListName && (
+                    <span>
+                        for {' '}
+                        <span className="font-bold">{shoppingListName}</span>
+                    </span>
+                )
+            }
+            </p>
             <DataTable
                 columns={shoppingListsItemsColumns}
                 data={shoppingListsItems}
