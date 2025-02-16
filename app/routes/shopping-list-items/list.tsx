@@ -3,8 +3,8 @@ import { DataTable } from "~/components/table/DataTable";
 import { shoppingListsItemsColumns } from "~/components/table/columns/shoppingListsItemsColumns";
 import { Link, useParams, useNavigate } from "react-router";
 import { Button, buttonVariants } from "~/components/ui/button";
-import type { Route } from "./+types/home";
 import { PlusIcon } from "lucide-react";
+import {type Route} from "../../../.react-router/types/app/+types/root";
 
 export function meta({ }: Route.MetaArgs) {
   return [
