@@ -2,9 +2,10 @@
 
 import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
-import {Button, buttonVariants} from "~/components/ui/button";
+import {buttonVariants} from "~/components/ui/button";
 import {Link} from "react-router";
 import {InfoIcon, Pen, ShoppingCart, Trash} from "lucide-react";
+import ActionTooltip from "~/components/table/ActionTooltip";
 
 export type ShoppingListItem = {
     id: string;
@@ -43,44 +44,53 @@ export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
 
             return (
                 <div className="flex gap-1 justify-center items-center">
-                    <Link
-                        to={`/shopping-lists/${shoppingList.id}/edit`}
-                        className={buttonVariants({
-                            variant: "outline",
-                            size: "icon"
-                        })}
-                    >
-                        <Pen/>
-                    </Link>
-                    <Link
-                        to={`/shopping-lists/${shoppingList.id}`}
-                        className={buttonVariants({
-                            variant: "outline",
-                            size: "icon"
-                        })}
-                    >
-                        <InfoIcon/>
-                    </Link>
+                    <ActionTooltip tooltipContent="Edit">
+                        <Link
+                            to={`/shopping-lists/${shoppingList.id}/edit`}
+                            className={buttonVariants({
+                                variant: "outline",
+                                size: "icon"
+                            })}
+                        >
+                            <Pen/>
+                        </Link>
+                    </ActionTooltip>
+                    <ActionTooltip tooltipContent="View">
 
-                    <Link
-                        to={`/shopping-lists/${shoppingList.id}/items`}
-                        className={buttonVariants({
-                            variant: "outline",
-                            size: "icon"
-                        })}
-                    >
-                        <ShoppingCart/>
-                    </Link>
+                        <Link
+                            to={`/shopping-lists/${shoppingList.id}`}
+                            className={buttonVariants({
+                                variant: "outline",
+                                size: "icon"
+                            })}
+                        >
+                            <InfoIcon/>
+                        </Link>
+                    </ActionTooltip>
 
-                    <Link
-                        to={`/shopping-lists/${shoppingList.id}/delete`}
-                        className={buttonVariants({
-                            variant: "outline",
-                            size: "icon"
-                        })}
-                    >
-                        <Trash/>
-                    </Link>
+                    <ActionTooltip tooltipContent="Items">
+                        <Link
+                            to={`/shopping-lists/${shoppingList.id}/items`}
+                            className={buttonVariants({
+                                variant: "outline",
+                                size: "icon"
+                            })}
+                        >
+                            <ShoppingCart/>
+                        </Link>
+                    </ActionTooltip>
+
+                    <ActionTooltip tooltipContent="Delete">
+                        <Link
+                            to={`/shopping-lists/${shoppingList.id}/delete`}
+                            className={buttonVariants({
+                                variant: "outline",
+                                size: "icon"
+                            })}
+                        >
+                            <Trash/>
+                        </Link>
+                    </ActionTooltip>
                 </div>
             );
         },
