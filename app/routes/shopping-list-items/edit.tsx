@@ -5,7 +5,7 @@ import type {ShoppingListItem} from "~/components/table/columns/shoppingListsCol
 import EditCard from "~/components/CustomCards/EditCard";
 
 const Edit = () => {
-    const {id: shoppingListId, itemId} = useParams();
+    const {itemId} = useParams();
     const [item, setItem] = useState<ShoppingListItem>();
 
 
@@ -13,16 +13,17 @@ const Edit = () => {
         const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/items/${itemId}`);
         response.then((res) => res.json()).then((data) => {
             setItem(data.item);
+            console.log(data.item)
         });
     }, [itemId]);
 
-    if (!item || !shoppingListId) {
+    if (!item) {
         return <div>Loading...</div>;
     }
 
     return (
         <EditCard title={`Edit Item : ${item.name}`}>
-            <TableItemForm listId={parseInt(shoppingListId)} itemId={parseInt(item.id)} name={item.name}/>
+            <TableItemForm listId={parseInt(item.listId)} itemId={parseInt(item.id)} name={item.name}/>
         </EditCard>
     );
 };

@@ -14,13 +14,13 @@ export default [
                 [
                     route("add", "routes/shopping-list-items/add.tsx"),
                     route(":itemId", "routes/shopping-list-items/show.tsx"),
+                    route(":itemId/edit", "routes/shopping-list-items/edit.tsx"),
                 ]
             ),
             ...prefix(
                 ":id/items",
                 [
-                    route("", "routes/shopping-list-items/list.tsx"),
-                    route(":itemId/edit", "routes/shopping-list-items/edit.tsx"),
+                    route("", "routes/shopping-list-items/list.tsx")
                 ]
             ),
         ]

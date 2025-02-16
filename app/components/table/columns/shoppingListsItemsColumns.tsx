@@ -3,7 +3,6 @@
 import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
 import {Link} from "react-router";
-import {useParams} from "react-router";
 import {InfoIcon, Pen, Trash} from "lucide-react";
 import {Button, buttonVariants} from "~/components/ui/button";
 import ActionTooltip from "~/components/table/ActionTooltip";
@@ -57,8 +56,6 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
         header: () => <div className="text-center">Actions</div>,
         cell: ({row}) => {
             const item = row.original;
-            const params = useParams();
-            const shoppingListId = params.id;
 
             const handleDelete = async () => {
                 try {
@@ -97,7 +94,7 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
                                 variant: "outline",
                                 size: "icon"
                             })}
-                            to={`/shopping-lists/${shoppingListId}/items/${item.id}/edit`}
+                            to={`/shopping-lists/items/${item.id}/edit`}
                         >
                             <Pen/>
                         </Link>

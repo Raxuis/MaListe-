@@ -12,6 +12,7 @@ export type ShoppingListItem = {
     id: string;
     name: string;
     created_at: string;
+    listId: string;
 }
 
 export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDef<ShoppingListItem>[] => [

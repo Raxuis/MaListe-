@@ -133,6 +133,7 @@ class ShoppingList extends Model
             shopping_item.name,
             shopping_item.created_at,
             shopping_item.is_completed,
+            shopping_list.id as list_id,
             shopping_list.name as list_name
         FROM shopping_item
         INNER JOIN shopping_list_shopping_item
