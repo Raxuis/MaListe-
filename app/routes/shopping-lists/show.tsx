@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router";
 import type { ShoppingList } from "~/components/table/columns/shoppingListsItemsColumns";
 import { Button } from "~/components/ui/button";
-import InfosCard from "~/components/infos/Card";
+import InfosCard from "~/components/CustomCards/InfoCard";
 
 const Show = () => {
   const { id } = useParams();

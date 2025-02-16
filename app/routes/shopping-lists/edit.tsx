@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import TableListForm from "~/components/form/TableListForm";
 import {useParams} from "react-router";
 import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
+import EditCard from "~/components/CustomCards/EditCard";
 
 const Edit = () => {
     const {id} = useParams();
@@ -22,17 +23,14 @@ const Edit = () => {
         );
     }
     return (
-        <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto">
-            <p>
-                Edit
-            </p>
+        <EditCard title={`Edit List : ${shoppingList.name}`}>
             <TableListForm
                 id={shoppingList.id}
                 description={shoppingList.description}
                 items={shoppingList.items}
                 name={shoppingList.name}
             />
-        </div>
+        </EditCard>
     );
 };
 
