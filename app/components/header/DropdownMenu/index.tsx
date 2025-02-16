@@ -2,13 +2,16 @@ import React from 'react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "~/components/ui/dropdown-menu";
 import {HomeIcon, Menu, ScrollTextIcon, ShoppingBasket} from "lucide-react";
 import {Link} from "react-router";
+import {Button} from "~/components/ui/button";
 
 const HeaderDropdownMenu = () => {
     return (
         <div className="flex mr-2 items-center gap-2">
             <DropdownMenu>
                 <DropdownMenuTrigger className="cursor-pointer">
-                    <Menu/>
+                    <Button variant="ghost" size="icon" className="cursor-pointer">
+                        <Menu size={64} />
+                    </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="bottom" align="end">
                     <DropdownMenuItem asChild className="cursor-pointer">
