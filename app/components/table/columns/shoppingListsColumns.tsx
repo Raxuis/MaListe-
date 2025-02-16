@@ -75,7 +75,7 @@ export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDe
                             <Pen/>
                         </Link>
                     </ActionTooltip>
-                    <ActionTooltip tooltipContent="View">
+                    <ActionTooltip tooltipContent="Show More">
                         <Link
                             to={`/shopping-lists/${shoppingList.id}`}
                             className={buttonVariants({

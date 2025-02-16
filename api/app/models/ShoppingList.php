@@ -85,6 +85,7 @@ class ShoppingList extends Model
         SELECT shopping_list.id AS shopping_list_id,
                shopping_list.name AS shopping_list_name,
                shopping_list.description,
+               shopping_list.created_at AS shopping_list_created_at,
                shopping_item.id AS shopping_item_id,
                shopping_item.name AS shopping_item_name
         FROM shopping_list
@@ -103,6 +104,7 @@ class ShoppingList extends Model
             "id" => $rows[0]["shopping_list_id"],
             "name" => $rows[0]["shopping_list_name"],
             "description" => $rows[0]["description"] ?? "",
+            "created_at" => $rows[0]["shopping_list_created_at"],
             "items" => []
         ];
 

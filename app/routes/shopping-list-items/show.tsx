@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from "react-router";
 import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
-import {Card, CardContent, CardHeader, CardTitle} from "~/components/ui/card";
 import {Button} from "~/components/ui/button";
-import {Calendar} from "lucide-react";
+import InfosCard from "~/components/infos/Card";
 
 const Show = () => {
     const {itemId} = useParams();
-    const [shoppingList, setShoppingList] = useState<ShoppingList>();
+    const [shoppingListItems, setShoppingListItems] = useState<ShoppingList>();
     const navigate = useNavigate();
 
     useEffect(() => {
         const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/items/${itemId}`);
         response.then((res) => res.json()).then((data) => {
-            setShoppingList(data.item);
+            setShoppingListItems(data.item);
         });
     }, []);
 
-    if (!shoppingList) {
+    if (!shoppingListItems) {
         return (
             <div>
                 Loading...
@@ -27,21 +26,10 @@ const Show = () => {
 
     return (
         <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto">
-            <Card>
-                <CardHeader>
-                    <CardTitle>
-                        {shoppingList?.name}
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p className="flex gap-2 text-sm text-slate-500 items-center">
-                        <Calendar className="size-5"/>
-                        <span>
-                            {shoppingList?.created_at}
-                        </span>
-                    </p>
-                </CardContent>
-            </Card>
+            <InfosCard infos={{
+                ...shoppingListItems,
+                createdAt: shoppingListItems.created_at
+            }}/>
             <Button variant="outline" className="cursor-pointer" onClick={() => {
                 navigate(-1);
             }}>
