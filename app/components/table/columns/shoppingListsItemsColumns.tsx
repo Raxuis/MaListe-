@@ -8,6 +8,7 @@ import {Button, buttonVariants} from "~/components/ui/button";
 import ActionTooltip from "~/components/table/ActionTooltip";
 import {toast} from "sonner";
 import TableBadge from "~/components/table/Badge/BadgeValid";
+import {cn} from "~/utils/cn";
 
 export type ShoppingList = {
     id: number,
@@ -79,10 +80,12 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
                 <div className="flex gap-1 justify-center">
                     <ActionTooltip tooltipContent="Show more">
                         <Link
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
+                            className={cn(
+                                buttonVariants({
+                                    variant: "outline",
+                                    size: "icon"
+                                }), "hover:text-green-500 transition-colors"
+                            )}
                             to={`/shopping-lists/items/${item.id}`}
                         >
                             <InfoIcon/>
@@ -90,10 +93,12 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
                     </ActionTooltip>
                     <ActionTooltip tooltipContent="Edit">
                         <Link
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
+                            className={cn(
+                                buttonVariants({
+                                    variant: "outline",
+                                    size: "icon"
+                                }), "hover:text-blue-500 transition-colors"
+                            )}
                             to={`/shopping-lists/items/${item.id}/edit`}
                         >
                             <Pen/>
@@ -102,9 +107,9 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
                     <ActionTooltip tooltipContent="Delete">
                         <Button
                             onClick={handleDelete}
-                            className="cursor-pointer"
                             variant="outline"
                             size="icon"
+                            className="cursor-pointer hover:text-red-500 transition-colors"
                         >
                             <Trash/>
                         </Button>

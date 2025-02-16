@@ -7,6 +7,7 @@ import {Link} from "react-router";
 import {InfoIcon, Pen, ShoppingCart, Trash} from "lucide-react";
 import ActionTooltip from "~/components/table/ActionTooltip";
 import {toast} from "sonner";
+import {cn} from "~/utils/cn";
 
 export type ShoppingListItem = {
     id: string;
@@ -65,24 +66,15 @@ export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDe
 
             return (
                 <div className="flex gap-1 justify-center items-center">
-                    <ActionTooltip tooltipContent="Edit">
-                        <Link
-                            to={`/shopping-lists/${shoppingList.id}/edit`}
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
-                        >
-                            <Pen/>
-                        </Link>
-                    </ActionTooltip>
                     <ActionTooltip tooltipContent="Show More">
                         <Link
                             to={`/shopping-lists/${shoppingList.id}`}
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
+                            className={cn(
+                                buttonVariants({
+                                    variant: "outline",
+                                    size: "icon"
+                                }), "hover:text-green-500 transition-colors"
+                            )}
                         >
                             <InfoIcon/>
                         </Link>
@@ -91,12 +83,28 @@ export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDe
                     <ActionTooltip tooltipContent="Items">
                         <Link
                             to={`/shopping-lists/${shoppingList.id}/items`}
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
+                            className={cn(
+                                buttonVariants({
+                                    variant: "outline",
+                                    size: "icon"
+                                }), "hover:text-amber-500 transition-colors"
+                            )}
                         >
                             <ShoppingCart/>
+                        </Link>
+                    </ActionTooltip>
+
+                    <ActionTooltip tooltipContent="Edit">
+                        <Link
+                            to={`/shopping-lists/${shoppingList.id}/edit`}
+                            className={cn(
+                                buttonVariants({
+                                    variant: "outline",
+                                    size: "icon"
+                                }), "hover:text-blue-500 transition-colors"
+                            )}
+                        >
+                            <Pen/>
                         </Link>
                     </ActionTooltip>
 
@@ -105,7 +113,7 @@ export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDe
                             variant="outline"
                             size="icon"
                             onClick={handleDelete}
-                            className="cursor-pointer"
+                            className="cursor-pointer hover:text-red-500 transition-colors"
                         >
                             <Trash/>
                         </Button>

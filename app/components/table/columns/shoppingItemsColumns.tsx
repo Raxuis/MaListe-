@@ -6,6 +6,7 @@ import {Link} from "react-router";
 import {buttonVariants} from "~/components/ui/button";
 import {InfoIcon} from "lucide-react";
 import ActionTooltip from "~/components/table/ActionTooltip";
+import {cn} from "~/utils/cn";
 
 export type ShoppingItem = {
     id: number,
@@ -52,10 +53,12 @@ export const shoppingItemsColumns: ColumnDef<ShoppingItem>[] = [
                 <div className="flex justify-center">
                     <ActionTooltip tooltipContent="Show more">
                         <Link
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
+                            className={cn(
+                                buttonVariants({
+                                    variant: "outline",
+                                    size: "icon"
+                                }), "hover:text-green-500 transition-colors"
+                            )}
                             to={`/shopping-lists/items/${item.id}`}
                         >
                             <InfoIcon/>
