@@ -2,10 +2,11 @@
 
 import type {ColumnDef} from "@tanstack/react-table";
 import {formatDateTime} from "~/utils";
-import {buttonVariants} from "~/components/ui/button";
+import {Button, buttonVariants} from "~/components/ui/button";
 import {Link} from "react-router";
 import {InfoIcon, Pen, ShoppingCart, Trash} from "lucide-react";
 import ActionTooltip from "~/components/table/ActionTooltip";
+import {toast} from "sonner";
 
 export type ShoppingListItem = {
     id: string;
@@ -13,7 +14,7 @@ export type ShoppingListItem = {
     created_at: string;
 }
 
-export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
+export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDef<ShoppingListItem>[] => [
     {
         header: "#",
         cell: ({row}) => {
@@ -42,6 +43,24 @@ export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
         cell: ({row}) => {
             const shoppingList = row.original;
 
+            const handleDelete = async () => {
+                try {
+                    const response = await fetch(
+                        `${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${shoppingList.id}`,
+                        {method: 'DELETE'}
+                    );
+
+                    if (!response.ok) {
+                        throw new Error('Failed to delete shopping list');
+                    }
+
+                    toast.success("Shopping list deleted successfully");
+                    await refreshData();
+                } catch (error) {
+                    toast.error("Failed to delete shopping list");
+                }
+            };
+
             return (
                 <div className="flex gap-1 justify-center items-center">
                     <ActionTooltip tooltipContent="Edit">
@@ -56,7 +75,6 @@ export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
                         </Link>
                     </ActionTooltip>
                     <ActionTooltip tooltipContent="View">
-
                         <Link
                             to={`/shopping-lists/${shoppingList.id}`}
                             className={buttonVariants({
@@ -81,15 +99,14 @@ export const shoppingListsColumns: ColumnDef<ShoppingListItem>[] = [
                     </ActionTooltip>
 
                     <ActionTooltip tooltipContent="Delete">
-                        <Link
-                            to={`/shopping-lists/${shoppingList.id}/delete`}
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={handleDelete}
+                            className="cursor-pointer"
                         >
                             <Trash/>
-                        </Link>
+                        </Button>
                     </ActionTooltip>
                 </div>
             );

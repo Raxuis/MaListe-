@@ -5,8 +5,9 @@ import {formatDateTime} from "~/utils";
 import {Link} from "react-router";
 import {useParams} from "react-router";
 import {Pen, Trash} from "lucide-react";
-import {buttonVariants} from "~/components/ui/button";
+import {Button, buttonVariants} from "~/components/ui/button";
 import ActionTooltip from "~/components/table/ActionTooltip";
+import {toast} from "sonner";
 
 export type ShoppingList = {
     id: number,
@@ -20,7 +21,7 @@ export type ShoppingList = {
     }]
 }
 
-export const shoppingListsItemsColumns: ColumnDef<ShoppingList>[] = [
+export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): ColumnDef<ShoppingList>[] => [
     {
         header: "#",
         cell: ({row}) => {
@@ -49,6 +50,24 @@ export const shoppingListsItemsColumns: ColumnDef<ShoppingList>[] = [
             const params = useParams();
             const shoppingListId = params.id;
 
+            const handleDelete = async () => {
+                try {
+                    const response = await fetch(
+                        `${import.meta.env.VITE_BACKEND_URL}/shopping-lists/items/${item.id}`,
+                        {method: 'DELETE'}
+                    );
+
+                    if (!response.ok) {
+                        throw new Error('Failed to delete item');
+                    }
+
+                    toast.success("Item deleted successfully");
+                    await refreshData();
+                } catch (error) {
+                    toast.error("Failed to delete item");
+                }
+            };
+
             return (
                 <div className="flex gap-1">
                     <ActionTooltip tooltipContent="Edit">
@@ -63,15 +82,14 @@ export const shoppingListsItemsColumns: ColumnDef<ShoppingList>[] = [
                         </Link>
                     </ActionTooltip>
                     <ActionTooltip tooltipContent="Delete">
-                        <Link
-                            className={buttonVariants({
-                                variant: "outline",
-                                size: "icon"
-                            })}
-                            to={`/shopping-lists/${shoppingListId}/items/${item.id}/delete`}
+                        <Button
+                            onClick={handleDelete}
+                            className="cursor-pointer"
+                            variant="outline"
+                            size="icon"
                         >
                             <Trash/>
-                        </Link>
+                        </Button>
                     </ActionTooltip>
                 </div>
             );
