@@ -52,6 +52,8 @@ For this project I used the following versions:
 
 ## Starting
 
+If on windows, try launching file `launch-application-and-server.bat`. 
+
 To get started with the project, follow these steps:
 
 1. Clone the repository:
