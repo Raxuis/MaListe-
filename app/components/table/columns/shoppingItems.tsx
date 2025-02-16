@@ -41,17 +41,19 @@ export const shoppingItems: ColumnDef<ShoppingItem>[] = [
         cell: ({row}) => {
             const item = row.original;
             return (
-                <ActionTooltip tooltipContent="Show more">
-                    <Link
-                        className={buttonVariants({
-                            variant: "outline",
-                            size: "icon"
-                        })}
-                        to={`/shopping-lists/items/${item.id}`}
-                    >
-                        <InfoIcon/>
-                    </Link>
-                </ActionTooltip>
+                <div className="flex justify-center">
+                    <ActionTooltip tooltipContent="Show more">
+                        <Link
+                            className={buttonVariants({
+                                variant: "outline",
+                                size: "icon"
+                            })}
+                            to={`/shopping-lists/items/${item.id}`}
+                        >
+                            <InfoIcon/>
+                        </Link>
+                    </ActionTooltip>
+                </div>
             );
         },
     }

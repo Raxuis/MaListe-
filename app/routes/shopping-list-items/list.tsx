@@ -4,6 +4,7 @@ import { shoppingListsItemsColumns } from "~/components/table/columns/shoppingLi
 import { Link, useParams, useNavigate } from "react-router";
 import { Button, buttonVariants } from "~/components/ui/button";
 import type { Route } from "./+types/home";
+import {PlusIcon} from "lucide-react";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -57,6 +58,7 @@ const List = () => {
           <Link to={`/shopping-lists/items/add`} className={buttonVariants({
             variant: "outline",
           })}>
+            <PlusIcon className="mr-1" size={16} />
             Add
           </Link>
         </div>

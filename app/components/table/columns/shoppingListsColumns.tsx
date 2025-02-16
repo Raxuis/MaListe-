@@ -16,9 +16,10 @@ export type ShoppingListItem = {
 
 export const shoppingListsColumns = (refreshData: () => Promise<void>): ColumnDef<ShoppingListItem>[] => [
     {
-        header: "#",
+        accessorKey: "id",
+        header: () => <div className="text-center">#</div>,
         cell: ({row}) => {
-            return <p>{row.index + 1}</p>;
+            return <p className="text-center">{row.index + 1}</p>;
         },
     },
     {

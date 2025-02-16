@@ -23,28 +23,29 @@ export type ShoppingList = {
 
 export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): ColumnDef<ShoppingList>[] => [
     {
-        header: "#",
+        accessorKey: "id",
+        header: () => <div className="text-center">#</div>,
         cell: ({row}) => {
-            return <p className="text-14-medium ">{row.index + 1}</p>;
+            return <p className="text-center ">{row.index + 1}</p>;
         },
     },
     {
         accessorKey: "name",
-        header: "Name",
+        header: () => <div className="text-center">Name</div>,
         cell: ({row}) => {
-            return <p className="text-14-medium">{row.original.name}</p>;
+            return <p className="text-center">{row.original.name}</p>;
         },
     },
     {
         accessorKey: "created_at",
-        header: "Created at",
+        header: () => <div className="text-center">Created At</div>,
         cell: ({row}) => {
-            return <p className="text-14-medium">{formatDateTime(row.original.created_at).dateTime}</p>;
+            return <p className="text-center">{formatDateTime(row.original.created_at).dateTime}</p>;
         },
     },
     {
         id: "actions",
-        header: () => <div className="pl-4">Actions</div>,
+        header: () => <div className="text-center">Actions</div>,
         cell: ({row}) => {
             const item = row.original;
             const params = useParams();
@@ -69,7 +70,7 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
             };
 
             return (
-                <div className="flex gap-1">
+                <div className="flex gap-1 justify-center">
                     <ActionTooltip tooltipContent="Show more">
                         <Link
                             className={buttonVariants({
