@@ -1,6 +1,6 @@
 # MaListe+
 
-**MaListe+** is aimed to list your shopping lists/items.
+**MaListe+** makes shopping simple: create, manage, and access your lists instantly.
 
 ---
 
@@ -52,7 +52,7 @@ For this project I used the following versions:
 
 ## Starting
 
-If on windows, try launching file `launch-application-and-server.bat`. 
+If on windows, try launching file `launch-application-and-server.bat`.
 
 To get started with the project, follow these steps:
 
