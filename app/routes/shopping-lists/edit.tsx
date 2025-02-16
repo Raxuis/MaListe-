@@ -1,37 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import TableListForm from "~/components/form/TableListForm";
-import {useParams} from "react-router";
-import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
+import { useParams } from "react-router";
 import EditCard from "~/components/CustomCards/EditCard";
+import { useShoppingList } from '~/hooks/useShoppingList';
 
 const Edit = () => {
-    const {id} = useParams();
-    const [shoppingList, setShoppingList] = useState<ShoppingList>();
+  const { id } = useParams();
+  const { currentList, fetchShoppingList } = useShoppingList();
 
-    useEffect(() => {
-        const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/${id}`);
-        response.then((res) => res.json()).then((data) => {
-            setShoppingList(data.shopping_list);
-        });
-    }, []);
+  useEffect(() => {
+    void fetchShoppingList(parseInt(id as string));
+  }, [id, fetchShoppingList]);
 
-    if (!shoppingList) {
-        return (
-            <div>
-                Loading...
-            </div>
-        );
-    }
-    return (
-        <EditCard title={`Edit List : ${shoppingList.name}`}>
-            <TableListForm
-                id={shoppingList.id}
-                description={shoppingList.description}
-                items={shoppingList.items}
-                name={shoppingList.name}
-            />
-        </EditCard>
-    );
+  if (!currentList) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <EditCard title={`Edit List : ${currentList.name}`}>
+      <TableListForm
+        id={currentList.id}
+        description={currentList.description}
+        items={currentList.items}
+        name={currentList.name}
+      />
+    </EditCard>
+  );
 };
 
 export default Edit;

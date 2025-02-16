@@ -4,7 +4,7 @@ import { shoppingListsItemsColumns } from "~/components/table/columns/shoppingLi
 import { Link, useParams, useNavigate } from "react-router";
 import { Button, buttonVariants } from "~/components/ui/button";
 import type { Route } from "./+types/home";
-import {PlusIcon} from "lucide-react";
+import { PlusIcon } from "lucide-react";
 
 export function meta({ }: Route.MetaArgs) {
   return [

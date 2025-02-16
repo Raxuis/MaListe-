@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {DataTable} from "~/components/table/DataTable";
 import {useNavigate} from "react-router";
 import {Button} from "~/components/ui/button";
-import {shoppingItems} from "~/components/table/columns/shoppingItems";
+import {shoppingItemsColumns} from "~/components/table/columns/shoppingItemsColumns";
 import type {Route} from "../../../.react-router/types/app/routes/+types/home";
 
 export function meta({}: Route.MetaArgs) {
@@ -34,7 +34,7 @@ const List = () => {
                     in the shopping list items pages.</p>
             </div>
             <DataTable
-                columns={shoppingItems}
+                columns={shoppingItemsColumns}
                 data={shoppingListsItems}
             />
             <Button className="inline-block cursor-pointer w-1/3 mx-auto" onClick={() => {

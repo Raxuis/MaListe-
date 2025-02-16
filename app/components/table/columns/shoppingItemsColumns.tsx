@@ -14,7 +14,7 @@ export type ShoppingItem = {
     shopping_list_name: string,
 }
 
-export const shoppingItems: ColumnDef<ShoppingItem>[] = [
+export const shoppingItemsColumns: ColumnDef<ShoppingItem>[] = [
     {
         accessorKey: "id",
         header: () => <div className="text-center">#</div>,
