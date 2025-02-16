@@ -26,6 +26,13 @@ This project is built using the following technologies:
 - [React](https://react.dev/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Shadcn](https://ui.shadcn.com/)
+- [LeafPHP](https://leafphp.dev/)
+- [PHP](https://php.net/)
+- [MySQL](https://www.mysql.com/)
+- [PHPMyAdmin](https://www.phpmyadmin.net/)
+- [Composer](https://getcomposer.org/)
+- [PNPM](https://pnpm.io/)
+- [Git](https://git-scm.com/)
 
 ---
 
@@ -37,6 +44,9 @@ For this project I used the following versions:
 - **npm**: v10.2.4
 - **React.js**: ^19.0.0
 - **TailwindCSS**: v4
+- **PHP**: v8.3.16
+- **LeafPHP**: v3.7
+- **Composer**: v2.8.5
 
 ---
 
@@ -70,18 +80,27 @@ To get started with the project, follow these steps:
 
 ### Backend :
 
-1. Go to the backend folder:
+1. First, you need to have a MySQL server running on your machine :
+    - Use MAMP
+    - Use LAMP
+    - Use WAMP
+    - Use XAMPP
+    - Use Docker
+
+2. You need to create a database and import the `/database/coda_shopping_lists.sql` file.
+
+3. Go to the backend folder:
    ```bash
    cd api/
    ```
-2. Install dependencies:
+4. Install dependencies:
    ```bash
     composer install
     ```
-3. Run the development server:
+5. Run the development server:
    ```bash
    php leaf serve
    ```
-4. Now your backend is ready to use.
+6. Now your backend is ready to use.
 
 ---
