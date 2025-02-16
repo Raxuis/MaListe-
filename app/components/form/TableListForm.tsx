@@ -69,7 +69,7 @@ const TableListForm = ({ id, name, description, items }: Props) => {
           listId: tableList.listId || Date.now()
         });
       }
-      navigate("/shopping-lists");
+      navigate(-1);
     } catch (error) {
       setError("An error occurred");
     }

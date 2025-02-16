@@ -11,8 +11,6 @@ import {
 } from "~/components/ui/select"
 import { useShoppingList } from '~/hooks/useShoppingList';
 import { useShoppingItem } from '~/hooks/useShoppingItem';
-import type { ShoppingList } from "~/components/table/columns/shoppingListsItemsColumns";
-import type { ShoppingItem } from '~/Context/ShoppingItemContext';
 
 type TableItem = {
   itemId: number | null;
@@ -82,7 +80,7 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
           is_completed: false
         });
       }
-      navigate("/shopping-lists");
+      navigate(-1);
     } catch (error) {
       setError("Une erreur est survenue");
     }
