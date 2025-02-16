@@ -8,17 +8,14 @@ import {InfoIcon, Pen, Trash} from "lucide-react";
 import {Button, buttonVariants} from "~/components/ui/button";
 import ActionTooltip from "~/components/table/ActionTooltip";
 import {toast} from "sonner";
+import TableBadge from "~/components/table/Badge/BadgeValid";
 
 export type ShoppingList = {
     id: number,
     name: string,
     description: string,
     created_at: string,
-    items?: [{
-        id: number,
-        name: string,
-        created_at: string
-    }]
+    is_completed: boolean,
 }
 
 export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): ColumnDef<ShoppingList>[] => [
@@ -34,6 +31,18 @@ export const shoppingListsItemsColumns = (refreshData: () => Promise<void>): Col
         header: () => <div className="text-center">Name</div>,
         cell: ({row}) => {
             return <p className="text-center">{row.original.name}</p>;
+        },
+    },
+    {
+        accessorKey: "is_completed",
+        header: () => <div className="text-center">Completed</div>,
+        cell: ({row}) => {
+            const isCompleted = row.original.is_completed;
+            return (
+                <p className="text-center">
+                    <TableBadge completed={isCompleted}/>
+                </p>
+            );
         },
     },
     {
