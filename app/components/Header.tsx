@@ -1,5 +1,12 @@
 import {Card} from "~/components/ui/card";
 import {Link} from "react-router";
+import {HomeIcon, Menu, ScrollTextIcon} from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from "~/components/ui/dropdown-menu";
 
 const Header = () => {
     return (
@@ -10,8 +17,25 @@ const Header = () => {
                      alt="icon"/>
             </Link>
             <div className="flex mr-2 items-center gap-2">
-                <Link to="/">Home</Link>
-                <Link to="/shopping-lists">Shopping Lists</Link>
+                <DropdownMenu>
+                    <DropdownMenuTrigger className="cursor-pointer">
+                        <Menu/>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent side="bottom" align="end">
+                        <DropdownMenuItem asChild className="cursor-pointer">
+                            <Link to="/" className="flex items-center gap-2">
+                                <HomeIcon/>
+                                Home
+                            </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild className="cursor-pointer">
+                            <Link to="/shopping-lists">
+                                <ScrollTextIcon/>
+                                Shopping Lists
+                            </Link>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </Card>
     );

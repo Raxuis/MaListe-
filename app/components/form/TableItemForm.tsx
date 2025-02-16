@@ -112,12 +112,12 @@ const TableItemForm = ({itemId, listId, name}: Props) => {
                 onValueChange={(value) => setTableItem(prev => ({...prev, listId: parseInt(value)}))}
                 value={tableItem.listId?.toString() || undefined}
             >
-                <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select an item"/>
+                <SelectTrigger className="w-full cursor-pointer">
+                    <SelectValue placeholder="Select a list"/>
                 </SelectTrigger>
                 <SelectContent>
                     {shoppingLists.map((list) => (
-                        <SelectItem value={list.id.toString()} key={list.id}>
+                        <SelectItem value={list.id.toString()} key={list.id} className="cursor-pointer">
                             {list.name}
                         </SelectItem>
                     ))}
@@ -131,10 +131,12 @@ const TableItemForm = ({itemId, listId, name}: Props) => {
                     type="button"
                     variant="destructive"
                     onClick={() => navigate("/shopping-lists")}
+                    className="cursor-pointer"
+
                 >
                     Cancel
                 </Button>
-                <Button type="submit" variant="outline">
+                <Button type="submit" variant="outline" className="cursor-pointer">
                     {tableItem.itemId ? "Edit" : "Create"}
                 </Button>
             </div>
