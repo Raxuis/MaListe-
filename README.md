@@ -15,7 +15,7 @@
 
 ## Author
 
-- Raphaël RACLOT also know as [Raxuis](https://github.com/Raxuis)
+- Raphaël RACLOT also known as [Raxuis](https://github.com/Raxuis)
 
 ---
 
