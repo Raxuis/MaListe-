@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import {type ReactNode, useCallback, useState} from "react";
 import { ShoppingListContext, type ShoppingList } from "~/Context/ShoppingListContext";
 
-export function ShoppingListProvider({ children }: { children: React.ReactNode }) {
+export function ShoppingListProvider({ children }: { children: ReactNode }) {
   const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([]);
   const [currentList, setCurrentList] = useState<ShoppingList | null>(null);
 

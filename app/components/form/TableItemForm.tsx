@@ -9,7 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select"
+import { useShoppingList } from '~/hooks/useShoppingList';
+import { useShoppingItem } from '~/hooks/useShoppingItem';
 import type { ShoppingList } from "~/components/table/columns/shoppingListsItemsColumns";
+import type { ShoppingItem } from '~/Context/ShoppingItemContext';
 
 type TableItem = {
   itemId: number | null;
@@ -25,7 +28,8 @@ type Props = {
 
 const TableItemForm = ({ itemId, listId, name }: Props) => {
   const navigate = useNavigate();
-  const [shoppingLists, setShoppingLists] = useState<ShoppingList[]>([]);
+  const { shoppingLists, fetchShoppingLists } = useShoppingList();
+  const { addShoppingItem, updateShoppingItem } = useShoppingItem();
 
   const [tableItem, setTableItem] = useState<TableItem>({
     itemId: itemId || null,
@@ -36,18 +40,8 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchShoppingLists = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists`);
-        const data = await response.json();
-        setShoppingLists(data.shopping_lists);
-      } catch (error) {
-        setError("Error while fetching shopping lists");
-      }
-    };
-
     void fetchShoppingLists();
-  }, []);
+  }, [fetchShoppingLists]);
 
   useEffect(() => {
     setTableItem(prev => ({
@@ -73,16 +67,20 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
     setError("");
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/items`, {
-        method: tableItem.itemId ? "PUT" : "POST",
-        body: JSON.stringify(tableItem),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (tableItem.itemId) {
+        console.log('Submitting item for update:', tableItem);
+        await updateShoppingItem({
+          id: tableItem.itemId,
+          listId: tableItem.listId,
+          name: tableItem.name,
+          is_completed: false
+        });
+      } else {
+        await addShoppingItem({
+          listId: tableItem.listId,
+          name: tableItem.name,
+          is_completed: false
+        });
       }
       navigate("/shopping-lists");
     } catch (error) {
@@ -132,7 +130,6 @@ const TableItemForm = ({ itemId, listId, name }: Props) => {
           variant="destructive"
           onClick={() => navigate(-1)}
           className="cursor-pointer"
-
         >
           Cancel
         </Button>

@@ -1,42 +1,56 @@
-import React, {useEffect, useState} from 'react';
-import {useParams, useNavigate} from "react-router";
-import type {ShoppingList} from "~/components/table/columns/shoppingListsItemsColumns";
-import {Button} from "~/components/ui/button";
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from "react-router";
+import { ShoppingItemContext } from '~/Context/ShoppingItemContext';
+import type { ShoppingList } from "~/components/table/columns/shoppingListsItemsColumns";
+import { Button } from "~/components/ui/button";
 import InfosCard from "~/components/CustomCards/InfoCard";
 
 const Show = () => {
-    const {itemId} = useParams();
-    const [shoppingListItems, setShoppingListItems] = useState<ShoppingList>();
-    const navigate = useNavigate();
+  const { itemId } = useParams();
+  const navigate = useNavigate();
+  const { fetchShoppingItem } = useContext(ShoppingItemContext) || {};
+  const [shoppingListItems, setShoppingListItems] = useState<ShoppingList | null>(null);
 
-    useEffect(() => {
-        const response = fetch(`${import.meta.env.VITE_BACKEND_URL}/shopping-lists/items/${itemId}`);
-        response.then((res) => res.json()).then((data) => {
-            setShoppingListItems(data.item);
-        });
-    }, []);
+  useEffect(() => {
+    const fetchItem = async () => {
+      if (!itemId || !fetchShoppingItem) return;
+      try {
+        const itemData = await fetchShoppingItem(parseInt(itemId));
 
-    if (!shoppingListItems) {
-        return (
-            <div>
-                Loading...
-            </div>
-        );
-    }
+        const shoppingListData: ShoppingList = {
+          id: itemData.id,
+          name: itemData.name,
+          description: "",
+          created_at: itemData.created_at || "",
+          is_completed: itemData.is_completed,
+        };
 
-    return (
-        <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto">
-            <InfosCard infos={{
-                ...shoppingListItems,
-                createdAt: shoppingListItems.created_at
-            }}/>
-            <Button variant="outline" className="cursor-pointer" onClick={() => {
-                navigate(-1);
-            }}>
-                Back
-            </Button>
-        </div>
-    );
+        setShoppingListItems(shoppingListData);
+      } catch (error) {
+        console.error("Failed to fetch item", error);
+      }
+    };
+
+    fetchItem();
+  }, [itemId, fetchShoppingItem]);
+
+  if (!shoppingListItems) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="flex flex-col gap-6 p-4 max-w-2xl mx-auto">
+      <InfosCard infos={{
+        ...shoppingListItems,
+        createdAt: shoppingListItems.created_at
+      }} />
+      <Button variant="outline" className="cursor-pointer" onClick={() => {
+        navigate(-1);
+      }}>
+        Back
+      </Button>
+    </div>
+  );
 };
 
 export default Show;

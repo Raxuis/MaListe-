@@ -11,7 +11,7 @@ type InfosCardProps = {
   infos: {
     id: number,
     name: string,
-    description: string,
+    description?: string,
     items?: {
       id: number,
       name: string,
