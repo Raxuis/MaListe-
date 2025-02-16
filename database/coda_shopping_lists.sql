@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 16, 2025 at 02:47 PM
+-- Generation Time: Feb 16, 2025 at 03:22 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -41,8 +41,7 @@ CREATE TABLE `shopping_item` (
 INSERT INTO `shopping_item` (`id`, `name`, `is_completed`, `created_at`) VALUES
 (1, 'item1', 0, '2025-02-14 12:26:32'),
 (25, 'item2', 0, '2025-02-16 09:57:15'),
-(37, 'item3', 1, '2025-02-16 12:54:15'),
-(38, 'item4', 0, '2025-02-16 12:54:15');
+(37, 'item3', 1, '2025-02-16 12:54:15');
 
 -- --------------------------------------------------------
 
@@ -85,8 +84,7 @@ CREATE TABLE `shopping_list_shopping_item` (
 INSERT INTO `shopping_list_shopping_item` (`id`, `shopping_list_id`, `shopping_item_id`) VALUES
 (23, 19, 25),
 (31, 20, 37),
-(32, 20, 38),
-(34, 1, 1);
+(40, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -120,7 +118,7 @@ ALTER TABLE `shopping_list_shopping_item`
 -- AUTO_INCREMENT for table `shopping_item`
 --
 ALTER TABLE `shopping_item`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `shopping_list`
@@ -132,7 +130,7 @@ ALTER TABLE `shopping_list`
 -- AUTO_INCREMENT for table `shopping_list_shopping_item`
 --
 ALTER TABLE `shopping_list_shopping_item`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Constraints for dumped tables
