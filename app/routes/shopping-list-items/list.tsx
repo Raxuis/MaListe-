@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {DataTable} from "~/components/table/DataTable";
 import {shoppingListsItemsColumns} from "~/components/table/columns/shoppingListsItemsColumns";
-import {Link, useParams} from "react-router";
-import {buttonVariants} from "~/components/ui/button";
+import {Link, useParams, useNavigate} from "react-router";
+import {Button, buttonVariants} from "~/components/ui/button";
 
 const List = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [shoppingListsItems, setShoppingListsItems] = useState([]);
     const [shoppingListName, setShoppingListName] = useState("");
     useEffect(() => {
@@ -33,11 +34,11 @@ const List = () => {
             />
             <div className="flex justify-between">
                 <div className="w-1/3">
-                    <Link to="/shopping-lists" className={buttonVariants({
-                        variant: "outline",
-                    })}>
+                    <Button className="cursor-pointer" variant="outline" onClick={() => {
+                        navigate(-1);
+                    }}>
                         Back to shopping lists
-                    </Link>
+                    </Button>
                 </div>
                 <div className="w-1/3 flex justify-end">
                     <Link to={`/shopping-lists/items/add`} className={buttonVariants({

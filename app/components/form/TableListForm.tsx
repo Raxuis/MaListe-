@@ -135,10 +135,10 @@ const TableListForm = ({id, name, description, items}: Props) => {
             {!!error && <div className="text-red-500">{error}</div>}
 
             <div className="flex justify-end gap-4">
-                <Button variant="destructive" onClick={() => navigate("/shopping-lists")}>
+                <Button variant="destructive" onClick={() => navigate(-1)} className="cursor-pointer">
                     Cancel
                 </Button>
-                <Button type="submit" variant="outline">
+                <Button type="submit" variant="outline" className="cursor-pointer">
                     {tableList.id ? "Edit" : "Create"}
                 </Button>
             </div>

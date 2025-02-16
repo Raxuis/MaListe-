@@ -130,7 +130,7 @@ const TableItemForm = ({itemId, listId, name}: Props) => {
                 <Button
                     type="button"
                     variant="destructive"
-                    onClick={() => navigate("/shopping-lists")}
+                    onClick={() => navigate(-1)}
                     className="cursor-pointer"
 
                 >
