@@ -1,12 +1,18 @@
 import React from 'react';
-import TableItemForm from "~/components/form/TableItemForm";
+import TableItemForm from '~/components/form/TableItemForm';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "~/components/ui/card";
 
 const Add = () => {
     return (
-        <div className="flex flex-col gap-4">
-            <p className="text-center text-3xl">Add</p>
-            <TableItemForm/>
-        </div>
+        <Card className="flex flex-col gap-8 p-4 max-w-2xl mx-auto">
+            <CardHeader>
+                <CardTitle>Add a Shopping Item</CardTitle>
+                <CardDescription>Add a new shopping item to the database.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <TableItemForm/>
+            </CardContent>
+        </Card>
     );
 };
 
