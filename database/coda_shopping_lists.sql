@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Feb 16, 2025 at 02:36 PM
+-- Generation Time: Feb 16, 2025 at 02:47 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -85,7 +85,8 @@ CREATE TABLE `shopping_list_shopping_item` (
 INSERT INTO `shopping_list_shopping_item` (`id`, `shopping_list_id`, `shopping_item_id`) VALUES
 (23, 19, 25),
 (31, 20, 37),
-(32, 20, 38);
+(32, 20, 38),
+(34, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -119,7 +120,7 @@ ALTER TABLE `shopping_list_shopping_item`
 -- AUTO_INCREMENT for table `shopping_item`
 --
 ALTER TABLE `shopping_item`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `shopping_list`
@@ -131,7 +132,7 @@ ALTER TABLE `shopping_list`
 -- AUTO_INCREMENT for table `shopping_list_shopping_item`
 --
 ALTER TABLE `shopping_list_shopping_item`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables

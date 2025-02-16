@@ -11,6 +11,7 @@ export type ShoppingItem = {
     id: number,
     name: string,
     created_at: string,
+    shopping_list_name: string,
 }
 
 export const shoppingItems: ColumnDef<ShoppingItem>[] = [
@@ -26,6 +27,13 @@ export const shoppingItems: ColumnDef<ShoppingItem>[] = [
         header: () => <div className="text-center">Name</div>,
         cell: ({row}) => {
             return <p className="text-center">{row.original.name}</p>;
+        },
+    },
+    {
+        accessorKey: "shopping_list_name",
+        header: () => <div className="text-center">Shopping List</div>,
+        cell: ({row}) => {
+            return <p className="text-center">{row.original.shopping_list_name || "No List"}</p>;
         },
     },
     {

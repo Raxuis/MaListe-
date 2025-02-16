@@ -106,14 +106,19 @@ class ShoppingItem extends Model
       ->first();
   }
 
-  public function getAll()
-  {
-    return db()
-      ->query('SELECT * FROM shopping_item')
-      ->fetchAll();
-  }
+    public function getAll()
+    {
+        return db()
+            ->query('
+            SELECT si.*, sl.name AS shopping_list_name
+            FROM shopping_item si
+            JOIN shopping_list_shopping_item slsi ON si.id = slsi.shopping_item_id
+            JOIN shopping_list sl ON slsi.shopping_list_id = sl.id
+        ')
+            ->fetchAll();
+    }
 
-  public function update(array $attributes = [], array $options = [])
+    public function update(array $attributes = [], array $options = [])
   {
     if (!isset($attributes["itemId"]) || !isset($attributes["name"]) || !isset($attributes["listId"])) {
       throw new \Exception("Les champs itemId, name et listId sont requis.");
