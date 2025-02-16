@@ -5,6 +5,7 @@ import {Button} from "~/components/ui/button";
 import {useNavigate} from "react-router";
 import {useShoppingList} from '~/hooks/useShoppingList';
 import {type Route} from "../../../.react-router/types/app/+types/root";
+import {PlusIcon} from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -28,9 +29,14 @@ const List = () => {
                 columns={shoppingListsColumns(fetchShoppingLists)}
                 data={shoppingLists as unknown as ShoppingListItem[]}
             />
-            <Button className="inline-block cursor-pointer w-1/3 mx-auto" onClick={() => {
-                navigate('/shopping-lists/add');
-            }}>
+            <Button
+                effect="expandIcon"
+                icon={PlusIcon} className="cursor-pointer w-1/3 mx-auto"
+                iconPlacement="right"
+                onClick={() => {
+                    navigate('/shopping-lists/add');
+                }}
+            >
                 Add Shopping List
             </Button>
         </div>

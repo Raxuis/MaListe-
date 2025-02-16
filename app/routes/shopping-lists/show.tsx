@@ -38,7 +38,7 @@ const Show = () => {
                 ...currentList,
                 createdAt: currentList.created_at
             }}/>
-            <Button variant="outline" className="cursor-pointer" onClick={() => navigate(-1)}>
+            <Button effect="gooeyRight" variant="outline" className="cursor-pointer" onClick={() => navigate(-1)}>
                 Back
             </Button>
         </div>
